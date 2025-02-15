@@ -95,3 +95,11 @@ ul {
 li {
     margin-bottom: 5px;
 }
+
+.logo-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+}
