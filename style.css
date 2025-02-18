@@ -7,6 +7,18 @@ body {
     color: #333;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:visited {
+    color: #555;
+}
+
 .header {
     text-align: center;
     margin-bottom: 30px;
