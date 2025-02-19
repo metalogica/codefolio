@@ -1,117 +1,93 @@
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    color: #333;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #333;
 }
-
 a {
   text-decoration: none;
+  color: #333;
 }
-
 a:hover {
   text-decoration: underline;
 }
-
 a:visited {
-    color: #555;
+  color: #555;
 }
-
 .header {
-    text-align: center;
-    margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 30px;
 }
-
 .header h1 {
-    font-size: 2.5em;
-    color: #444;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
+  font-size: 2.5em;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
 }
-
 .header h2 {
-    font-size: 1.2em;
-    color: #666;
-    font-weight: normal;
-    text-transform: uppercase;
+  font-size: 1.2em;
+  color: #666;
+  font-weight: normal;
+  text-transform: uppercase;
 }
-
-.container {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    gap: 40px;
-}
-
 .section-title {
-    text-transform: uppercase;
-    color: #444;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-size: 1.1em;
-    font-weight: 900;;
+  text-transform: uppercase;
+  color: #444;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  font-weight: 900;
 }
-
-.left-column {
-    border-right: 1px solid #eee;
-    padding-right: 20px;
-}
-
-.contact-item {
-    margin-bottom: 10px;
-}
-
-.contact-item a {
-    color: #333;
-    text-decoration: none;
-}
-
-.contact-item a:hover {
-    text-decoration: underline;
-}
-
-.tech-stack {
-    margin-top: 20px;
-}
-
-.tech-category {
-    margin-bottom: 15px;
-}
-
-.tech-category-title {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
 .experience-item {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
-
 .experience-title {
-    font-weight: bold;
-    margin-bottom: 5px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
-
-.experience-date {
-    color: #666;
-    font-size: 0.9em;
+.experience-date, .education-date, .hackathon-date {
+  color: #666;
+  font-size: 0.9em;
 }
-
 ul {
-    margin: 0;
-    padding-left: 20px;
+  margin: 0;
+  padding-left: 20px;
 }
-
 li {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
-
-.logo-block {
+.footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+.footer-section {
+  margin-bottom: 30px;
+}
+.contact-section {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.contact-item {
+  display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
+}
+.tech-category {
+  margin-bottom: 15px;
+}
+.tech-category-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.experience-section, .hackathon-section, .education-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
