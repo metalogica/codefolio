@@ -11,7 +11,6 @@ type ChatHistory = {
   input: string;
 };
 
-// Customize these placeholder messages for the input field
 const PLACEHOLDER_MESSAGES = [
   "Type your question...",
   "How old are you?",
@@ -29,7 +28,9 @@ export default function MacTerminal() {
   const [placeholder, setPlaceholder] = useState("");
   const [currentPlaceholderIndex, setCurrentPlaceholderIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -62,15 +63,14 @@ export default function MacTerminal() {
     return () => clearTimeout(timeout);
   }, [placeholder, isDeleting, currentPlaceholderIndex]);
 
-  // Customize this welcome message with your information
   const welcomeMessage = `Welcome to My Portfolio
 
-Name: John Doe
+Name: Rei Jarram
 Role: Full Stack Developer
-Location: Austin, TX
+Location: Montreal, QC
 
-Contact: john@johndoe.com
-GitHub: github.com/johndoe
+Contact: rjarram@me.com
+GitHub: github.com/reijarram
 
 Ask me anything!
 `;
@@ -115,7 +115,7 @@ Response rules:
 4. Use markdown formatting when appropriate
 5. Maintain a friendly, conversational tone
 
-If a question is unrelated to my work or portfolio, say: "That's outside my area of expertise. Feel free to email me at john@johndoe.com and we can discuss further!"`;
+If a question is unrelated to my work or portfolio, say: "That's outside my area of expertise. Feel free to email me at rjarram@me.com and we can discuss further!"`;
 
   useEffect(() => {
     setChatHistory((prev) => ({
@@ -182,7 +182,7 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
           {
             role: "assistant",
             content:
-              "I'm having trouble processing that. Please email me at john@johndoe.com",
+              "I'm having trouble processing that. Please email me at rjarram@me.com",
           },
         ],
       }));
@@ -191,46 +191,75 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
     }
   };
 
+  // Drag handlers
+  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (dragRef.current) {
+      const startX = e.pageX - position.x;
+      const startY = e.pageY - position.y;
+
+      const onMouseMove = (moveEvent: MouseEvent) => {
+        setPosition({
+          x: moveEvent.pageX - startX,
+          y: moveEvent.pageY - startY,
+        });
+      };
+
+      const onMouseUp = () => {
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+      };
+
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+    }
+  };
+
   return (
-    <div className="bg-black/75 w-[600px] h-[400px] rounded-lg overflow-hidden shadow-lg mx-4 sm:mx-0">
-      <div className="bg-gray-800 h-6 flex items-center space-x-2 px-4">
-        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-        <div className="w-3 h-3 rounded-full bg-green-500"></div>
-        <span className="text-sm text-gray-300 flex-grow text-center font-semibold flex items-center justify-center gap-2">
-          <FaRegFolderClosed size={14} className="text-gray-300" />
-          johndoe.com ⸺ zsh
-        </span>
-      </div>
-      <div className="p-4 text-gray-200 font-mono text-xs h-[calc(400px-1.5rem)] flex flex-col">
-        <div className="flex-1 overflow-y-auto">
-          {chatHistory.messages.map((msg, index) => (
-            <div key={index} className="mb-2">
-              {msg.role === "user" ? (
-                <div className="flex items-start space-x-2">
-                  <span className="text-green-400">{">"}</span>
-                  <pre className="whitespace-pre-wrap">{msg.content}</pre>
-                </div>
-              ) : (
-                <pre className="whitespace-pre-wrap">{msg.content}</pre>
-              )}
-            </div>
-          ))}
-          {isTyping && <div className="animate-pulse">...</div>}
-          <div ref={messagesEndRef} />
+    <div className="absolute" style={{ left: position.x, top: position.y }}>
+      <div
+        ref={dragRef}
+        onMouseDown={onMouseDown}
+        className="bg-black/75 w-[600px] h-[400px] rounded-lg overflow-hidden shadow-lg mx-4 sm:mx-0"
+      >
+        <div className="bg-gray-800 h-6 flex items-center space-x-2 px-4">
+          <div className="w-3 h-3 rounded-full bg-red-500"></div>
+          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+          <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          <span className="text-sm text-gray-300 flex-grow text-center font-semibold flex items-center justify-center gap-2">
+            <FaRegFolderClosed size={14} className="text-gray-300" />
+            johndoe.com ⸺ zsh
+          </span>
         </div>
-        <form onSubmit={handleSubmit} className="mt-2">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
-            <span className="whitespace-nowrap">guest@rei root %</span>
-            <input
-              type="text"
-              value={chatHistory.input}
-              onChange={handleInputChange}
-              className="w-full sm:flex-1 bg-transparent outline-none text-white placeholder-gray-400"
-              placeholder={placeholder}
-            />
+        <div className="p-4 text-gray-200 font-mono text-xs h-[calc(400px-1.5rem)] flex flex-col">
+          <div className="flex-1 overflow-y-auto">
+            {chatHistory.messages.map((msg, index) => (
+              <div key={index} className="mb-2">
+                {msg.role === "user" ? (
+                  <div className="flex items-start space-x-2">
+                    <span className="text-green-400">{">"}</span>
+                    <pre className="whitespace-pre-wrap">{msg.content}</pre>
+                  </div>
+                ) : (
+                  <pre className="whitespace-pre-wrap">{msg.content}</pre>
+                )}
+              </div>
+            ))}
+            {isTyping && <div className="animate-pulse">...</div>}
+            <div ref={messagesEndRef} />
           </div>
-        </form>
+          <form onSubmit={handleSubmit} className="mt-2">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
+              <span className="whitespace-nowrap">guest@rei root %</span>
+              <input
+                type="text"
+                value={chatHistory.input}
+                onChange={handleInputChange}
+                className="w-full sm:flex-1 bg-transparent outline-none text-white placeholder-gray-400"
+                placeholder={placeholder}
+              />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
