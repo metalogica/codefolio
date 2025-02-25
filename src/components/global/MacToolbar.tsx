@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { MdWifi } from 'react-icons/md';
-import { FaApple } from 'react-icons/fa';
+import { useState, useEffect } from "react";
+import { MdWifi } from "react-icons/md";
+import { FaApple } from "react-icons/fa";
 import {
   IoSearchSharp,
   IoBatteryHalfOutline,
   IoCellular,
-} from 'react-icons/io5';
-import { VscVscode } from 'react-icons/vsc';
+} from "react-icons/io5";
+import { VscVscode } from "react-icons/vsc";
 
 export default function MacToolbar() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -20,25 +20,25 @@ export default function MacToolbar() {
   }, []);
 
   const formatMacDate = (date: Date) => {
-    const weekday = date.toLocaleString('en-US', { weekday: 'short' });
-    const month = date.toLocaleString('en-US', { month: 'short' });
+    const weekday = date.toLocaleString("en-US", { weekday: "short" });
+    const month = date.toLocaleString("en-US", { month: "short" });
     const day = date.getDate();
-    const hour = date.toLocaleString('en-US', {
-      hour: 'numeric',
+    const hour = date.toLocaleString("en-US", {
+      hour: "numeric",
       hour12: true,
     });
-    const minute = date.getMinutes().toString().padStart(2, '0');
-    const period = date.getHours() >= 12 ? 'PM' : 'AM';
+    const minute = date.getMinutes().toString().padStart(2, "0");
+    const period = date.getHours() >= 12 ? "PM" : "AM";
 
     return `${weekday} ${month} ${day} ${hour.replace(
       /\s?[AP]M/,
-      '',
+      ""
     )}:${minute} ${period}`;
   };
 
   const formatIPhoneTime = (date: Date) => {
     let hour = date.getHours();
-    const minute = date.getMinutes().toString().padStart(2, '0');
+    const minute = date.getMinutes().toString().padStart(2, "0");
 
     hour = hour % 12;
     hour = hour ? hour : 12;
@@ -47,7 +47,7 @@ export default function MacToolbar() {
   };
 
   const handleVSCodeClick = () => {
-    window.location.href = 'vscode:/';
+    window.location.href = "vscode:/";
   };
 
   return (
@@ -66,7 +66,7 @@ export default function MacToolbar() {
       <div className="sticky top-0 z-50 hidden md:flex bg-black/20 backdrop-blur-md text-white h-6 px-4 items-center justify-between text-sm">
         <div className="flex items-center space-x-4">
           <FaApple size={16} />
-          <span className="font-semibold cursor-default">John Doe</span>
+          <span className="font-semibold cursor-default">rei jarram</span>
           <span className="cursor-default">File</span>
           <span className="cursor-default">Edit</span>
           <span className="cursor-default">View</span>
