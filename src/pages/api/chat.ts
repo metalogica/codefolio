@@ -27,9 +27,7 @@ export const POST: APIRoute = async ({ request }) => {
         },
       }
     );
-  } catch (error) {
-    console.error(error);
-
+  } catch {
     return new Response(
       JSON.stringify({
         error: "Failed to generate response",
