@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { MdWifi } from "react-icons/md";
 import { FaApple } from "react-icons/fa";
-import { IoBatteryHalfOutline, IoCellular } from "react-icons/io5";
+import {
+  IoSearchSharp,
+  IoBatteryHalfOutline,
+  IoCellular,
+} from "react-icons/io5";
 
 export default function MacToolbar() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -66,6 +70,8 @@ export default function MacToolbar() {
           <span className="cursor-default">Help</span>
         </div>
         <div className="flex items-center space-x-4">
+          <MdWifi size={16} />
+          <IoSearchSharp size={16} />
           <span className="cursor-default">
             {formatMacDate(currentDateTime)}
           </span>
