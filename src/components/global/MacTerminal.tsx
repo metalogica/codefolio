@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
-import { FaRegFolderClosed } from "react-icons/fa6";
+import { useState, useEffect, useRef } from 'react';
+import { FaRegFolderClosed } from 'react-icons/fa6';
 
 type Message = {
-  role: "system" | "user" | "assistant";
+  role: 'system' | 'user' | 'assistant';
   content: string;
 };
 
@@ -12,20 +12,20 @@ type ChatHistory = {
 };
 
 const PLACEHOLDER_MESSAGES = [
-  "Type your question...",
-  "How old are you?",
-  "What are your skills?",
-  "Where are you located?",
-  "What projects have you worked on?",
+  'Type your question...',
+  'How old are you?',
+  'What are your skills?',
+  'Where are you located?',
+  'What projects have you worked on?',
 ];
 
 export default function MacTerminal() {
   const [chatHistory, setChatHistory] = useState<ChatHistory>({
     messages: [],
-    input: "",
+    input: '',
   });
   const [isTyping, setIsTyping] = useState(false);
-  const [placeholder, setPlaceholder] = useState("");
+  const [placeholder, setPlaceholder] = useState('');
   const [currentPlaceholderIndex, setCurrentPlaceholderIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -45,7 +45,7 @@ export default function MacTerminal() {
         if (placeholder.length === 0) {
           setIsDeleting(false);
           setCurrentPlaceholderIndex(
-            (prev) => (prev + 1) % PLACEHOLDER_MESSAGES.length
+            (prev) => (prev + 1) % PLACEHOLDER_MESSAGES.length,
           );
           timeout = setTimeout(animatePlaceholder, 400);
         } else {
@@ -80,10 +80,10 @@ Ask me anything!
 `;
 
   const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
+  const formattedDate = currentDate.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
   });
 
   const systemPrompt = `IMPORTANT: You ARE Rei Jarram. You must always speak in first-person ("I", "my", "me"). Never refer to "rei" in third-person.
@@ -126,13 +126,13 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
       ...prev,
       messages: [
         ...prev.messages,
-        { role: "assistant", content: welcomeMessage },
+        { role: 'assistant', content: welcomeMessage },
       ],
     }));
   }, []);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatHistory.messages]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -146,28 +146,28 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
     if (!userInput) return;
 
     setChatHistory((prev) => ({
-      messages: [...prev.messages, { role: "user", content: userInput }],
-      input: "",
+      messages: [...prev.messages, { role: 'user', content: userInput }],
+      input: '',
     }));
 
     setIsTyping(true);
 
     try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
+      const response = await fetch('/api/chat', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           messages: [
-            { role: "system", content: systemPrompt },
+            { role: 'system', content: systemPrompt },
             ...chatHistory.messages,
-            { role: "user", content: userInput },
+            { role: 'user', content: userInput },
           ],
         }),
       });
 
-      if (!response.ok) throw new Error("Failed to get response");
+      if (!response.ok) throw new Error('Failed to get response');
 
       const data = await response.json();
 
@@ -175,7 +175,7 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
         ...prev,
         messages: [
           ...prev.messages,
-          { role: "assistant", content: data.message },
+          { role: 'assistant', content: data.message },
         ],
       }));
     } catch (error) {
@@ -184,9 +184,9 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
         messages: [
           ...prev.messages,
           {
-            role: "assistant",
+            role: 'assistant',
             content:
-              "I'm having trouble processing that. Please email me at rjarram@me.com",
+              'I\'m having trouble processing that. Please email me at rjarram@me.com',
           },
         ],
       }));
@@ -209,12 +209,12 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
       };
 
       const onMouseUp = () => {
-        document.removeEventListener("mousemove", onMouseMove);
-        document.removeEventListener("mouseup", onMouseUp);
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
       };
 
-      document.addEventListener("mousemove", onMouseMove);
-      document.addEventListener("mouseup", onMouseUp);
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
     }
   };
 
@@ -234,7 +234,7 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
       const newWidth = Math.max(300, startWidth + (moveEvent.clientX - startX));
       const newHeight = Math.max(
         200,
-        startHeight + (moveEvent.clientY - startY)
+        startHeight + (moveEvent.clientY - startY),
       );
 
       setDimensions({
@@ -245,12 +245,12 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
 
     const onMouseUp = () => {
       setIsResizing(false);
-      document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
     };
 
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseup", onMouseUp);
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
   };
 
   return (
@@ -284,9 +284,9 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
             <div className="flex-1 overflow-y-auto">
               {chatHistory.messages.map((msg, index) => (
                 <div key={index} className="mb-2">
-                  {msg.role === "user" ? (
+                  {msg.role === 'user' ? (
                     <div className="flex items-start space-x-2">
-                      <span className="text-green-400">{">"}</span>
+                      <span className="text-green-400">{'>'}</span>
                       <pre className="whitespace-pre-wrap">{msg.content}</pre>
                     </div>
                   ) : (
@@ -317,8 +317,8 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
           onMouseDown={startResize}
           style={{
             backgroundImage:
-              "radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)",
-            backgroundSize: "3px 3px",
+              'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)',
+            backgroundSize: '3px 3px',
           }}
         ></div>
       </div>
