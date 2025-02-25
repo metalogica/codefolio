@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { BsGithub, BsSpotify } from "react-icons/bs";
+import { BsGithub } from "react-icons/bs";
 import { IoIosMail } from "react-icons/io";
-import { VscVscode } from "react-icons/vsc";
 import { RiTerminalFill } from "react-icons/ri";
 
 export default function DesktopDock() {
@@ -19,14 +18,6 @@ export default function DesktopDock() {
     window.open("https://calendly.com/", "_blank");
   };
 
-  const handleSpotifyClick = () => {
-    window.open("https://open.spotify.com", "_blank");
-  };
-
-  const handleVSCodeClick = () => {
-    window.location.href = "vscode:/";
-  };
-
   const Tooltip = ({ text }: { text: string }) => (
     <div className="absolute -top-14 left-1/2 -translate-x-1/2">
       <div className="relative px-3 py-1 bg-[#1d1d1f]/80 backdrop-blur-sm text-white text-sm rounded-lg whitespace-nowrap border border-px border-gray-600">
@@ -40,19 +31,6 @@ export default function DesktopDock() {
     <div className="fixed bottom-0 left-1/2 -translate-x-1/2 hidden md:block z-50">
       <div className="relative mb-2 p-3 bg-gradient-to-t from-gray-700 to-gray-800 backdrop-blur-2xl rounded-2xl">
         <div className="flex items-end space-x-4">
-          {/* VSCode */}
-          <button
-            onClick={handleVSCodeClick}
-            onMouseEnter={() => setHoveredIcon("vscode")}
-            onMouseLeave={() => setHoveredIcon(null)}
-            className="relative"
-          >
-            <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-lg">
-              <VscVscode size={45} className="text-blue-500" />
-            </div>
-            {hoveredIcon === "vscode" && <Tooltip text="Launch VS Code" />}
-          </button>
-
           {/* Email */}
           <button
             onClick={handleEmailClick}
@@ -102,19 +80,6 @@ export default function DesktopDock() {
               </div>
             </div>
             {hoveredIcon === "calendar" && <Tooltip text="Book a Call" />}
-          </button>
-
-          {/* Spotify */}
-          <button
-            onClick={handleSpotifyClick}
-            onMouseEnter={() => setHoveredIcon("spotify")}
-            onMouseLeave={() => setHoveredIcon(null)}
-            className="relative"
-          >
-            <div className="w-14 h-14 bg-gradient-to-t from-black to-black/60 rounded-xl flex items-center justify-center shadow-lg">
-              <BsSpotify size={45} className="text-[#1ED760]" />
-            </div>
-            {hoveredIcon === "spotify" && <Tooltip text="My Dev Playlist" />}
           </button>
 
           {/* Divider */}

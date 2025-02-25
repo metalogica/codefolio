@@ -189,7 +189,6 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
     }
   };
 
-  // Drag handlers
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (dragRef.current) {
       const startX = e.pageX - position.x;
@@ -212,7 +211,6 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
     }
   };
 
-  // Resize handlers
   const startResize = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
