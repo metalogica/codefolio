@@ -7,15 +7,15 @@ export default function DesktopDock() {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
 
   const handleEmailClick = () => {
-    window.location.href = "mailto:john@johndoe.com";
+    window.location.href = "mailto:rjarram@me.com";
   };
 
   const handleGithubClick = () => {
-    window.open("https://github.com/johndoe", "_blank");
+    window.open("https://github.com/metalogica", "_blank");
   };
 
   const handleCalendarClick = () => {
-    window.open("https://calendly.com/", "_blank");
+    window.open("https://calendly.com/rjarram/30min", "_blank");
   };
 
   const Tooltip = ({ text }: { text: string }) => (
@@ -31,7 +31,6 @@ export default function DesktopDock() {
     <div className="fixed bottom-0 left-1/2 -translate-x-1/2 hidden md:block z-50">
       <div className="relative mb-2 p-3 bg-gradient-to-t from-gray-700 to-gray-800 backdrop-blur-2xl rounded-2xl">
         <div className="flex items-end space-x-4">
-          {/* Email */}
           <button
             onClick={handleEmailClick}
             onMouseEnter={() => setHoveredIcon("email")}
@@ -44,7 +43,6 @@ export default function DesktopDock() {
             {hoveredIcon === "email" && <Tooltip text="Email Me" />}
           </button>
 
-          {/* Github */}
           <button
             onClick={handleGithubClick}
             onMouseEnter={() => setHoveredIcon("github")}
@@ -57,7 +55,6 @@ export default function DesktopDock() {
             {hoveredIcon === "github" && <Tooltip text="My GitHub" />}
           </button>
 
-          {/* Calendar */}
           <button
             onClick={handleCalendarClick}
             onMouseEnter={() => setHoveredIcon("calendar")}
@@ -82,12 +79,10 @@ export default function DesktopDock() {
             {hoveredIcon === "calendar" && <Tooltip text="Book a Call" />}
           </button>
 
-          {/* Divider */}
           <div className="flex items-center">
             <div className="w-px h-14 bg-white/20" />
           </div>
 
-          {/* Terminal */}
           <button
             onMouseEnter={() => setHoveredIcon("terminal")}
             onMouseLeave={() => setHoveredIcon(null)}

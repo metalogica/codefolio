@@ -6,20 +6,29 @@ export default function MobileDock() {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
 
   const handleEmailClick = () => {
-    window.location.href = "mailto:john@johndoe.com";
+    window.location.href = "mailto:rjarram@me.com";
   };
 
   const handleGithubClick = () => {
-    window.open("https://github.com/johndoe", "_blank");
+    window.open("https://github.com/metalogica", "_blank");
   };
 
   const handleCalendarClick = () => {
-    window.open("https://calendly.com/", "_blank");
+    window.open("https://calendly.com/rjarram/30min", "_blank");
   };
+
+  const Tooltip = ({ text }: { text: string }) => (
+    <div className="absolute -top-14 left-1/2 -translate-x-1/2">
+      <div className="relative px-3 py-1 bg-[#1d1d1f]/80 backdrop-blur-sm text-white text-sm rounded-lg whitespace-nowrap border border-px border-gray-600">
+        {text}
+        <div className="absolute left-1/2 -translate-x-1/2 -bottom-[7px] w-3 h-3 bg-[#1d1d1f]/80 backdrop-blur-sm rotate-45 border-b border-r border-gray-600" />
+      </div>
+    </div>
+  );
 
   return (
     <div className="fixed bottom-0 left-0 right-0 md:hidden">
-      <div className="mx-4 mb-4 p-3 bg-gradient-to-t from-gray-700 to-gray-800 backdrop-blur-xl rounded-3xl flex justify-around items-center max-w-[400px] mx-auto">
+      <div className=" mb-4 p-3 bg-gradient-to-t from-gray-700 to-gray-800 backdrop-blur-xl rounded-3xl flex justify-around items-center max-w-[400px] mx-auto">
         <button
           onClick={handleEmailClick}
           className="flex flex-col items-center cursor-pointer"
