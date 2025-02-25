@@ -23,12 +23,28 @@ export default function MacTerminal() {
   const [currentPlaceholderIndex, setCurrentPlaceholderIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-
   const [dimensions, setDimensions] = useState({ width: 600, height: 400 });
   const [_isResizing, setIsResizing] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<HTMLDivElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
+
+  // Detect if the client is on a mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobileDevice =
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        ) || window.innerWidth < 768; // Combine UA check with width for reliability
+      setIsMobile(isMobileDevice);
+    };
+
+    checkMobile(); // Run on mount
+    window.addEventListener("resize", checkMobile); // Update on resize
+
+    return () => window.removeEventListener("resize", checkMobile); // Cleanup
+  }, []);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -116,14 +132,16 @@ Response rules:
 If a question is unrelated to my work or portfolio, say: "That's outside my area of expertise. Feel free to email me at rjarram@me.com and we can discuss further!"`;
 
   useEffect(() => {
-    setChatHistory((prev) => ({
-      ...prev,
-      messages: [
-        ...prev.messages,
-        { role: "assistant", content: welcomeMessage },
-      ],
-    }));
-  }, []);
+    if (!isMobile) {
+      setChatHistory((prev) => ({
+        ...prev,
+        messages: [
+          ...prev.messages,
+          { role: "assistant", content: welcomeMessage },
+        ],
+      }));
+    }
+  }, [isMobile]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -222,7 +240,6 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
     const startHeight = dimensions.height;
 
     const onMouseMove = (moveEvent: MouseEvent) => {
-      // Calculate new width and height with minimum constraints
       const newWidth = Math.max(300, startWidth + (moveEvent.clientX - startX));
       const newHeight = Math.max(
         200,
@@ -244,6 +261,10 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseup", onMouseUp);
   };
+
+  if (isMobile) {
+    return null;
+  }
 
   return (
     <div className="absolute" style={{ left: position.x, top: position.y }}>
