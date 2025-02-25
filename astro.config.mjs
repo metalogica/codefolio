@@ -12,8 +12,10 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      allowedHosts: ["a61b-76-68-188-65.ngrok-free.app"],
+    },
   },
-
   integrations: [
     react(),
     sitemap({
@@ -24,8 +26,8 @@ export default defineConfig({
     }),
   ],
 
-  output: "server",
   adapter: vercel(),
+  output: "server",
   devToolbar: {
     enabled: false,
   },
