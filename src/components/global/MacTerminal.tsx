@@ -19,18 +19,19 @@ export default function MacTerminal() {
     input: "",
   });
   const [isTyping, setIsTyping] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [placeholder, setPlaceholder] = useState("");
   const [currentPlaceholderIndex, setCurrentPlaceholderIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const [isMobile, setIsMobile] = useState(false);
+  const [position, setPosition] = useState({ x: 150, y: 150 });
   const [dimensions, setDimensions] = useState({ width: 600, height: 400 });
   const [_isResizing, setIsResizing] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<HTMLDivElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
 
-  // Detect if the client is on a mobile device
   useEffect(() => {
     const checkMobile = () => {
       const isMobileDevice =
@@ -40,7 +41,7 @@ export default function MacTerminal() {
       setIsMobile(isMobileDevice);
     };
 
-    checkMobile(); // Run on mount
+    checkMobile();
     window.addEventListener("resize", checkMobile); // Update on resize
 
     return () => window.removeEventListener("resize", checkMobile); // Cleanup
