@@ -29,8 +29,12 @@ export default function MacTerminal() {
   const [currentPlaceholderIndex, setCurrentPlaceholderIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const [dimensions, setDimensions] = useState({ width: 600, height: 400 });
+  const [_isResizing, setIsResizing] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<HTMLDivElement>(null);
+  const terminalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -214,14 +218,56 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
     }
   };
 
+  // Resize handlers
+  const startResize = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsResizing(true);
+
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const startWidth = dimensions.width;
+    const startHeight = dimensions.height;
+
+    const onMouseMove = (moveEvent: MouseEvent) => {
+      // Calculate new width and height with minimum constraints
+      const newWidth = Math.max(300, startWidth + (moveEvent.clientX - startX));
+      const newHeight = Math.max(
+        200,
+        startHeight + (moveEvent.clientY - startY)
+      );
+
+      setDimensions({
+        width: newWidth,
+        height: newHeight,
+      });
+    };
+
+    const onMouseUp = () => {
+      setIsResizing(false);
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+    };
+
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
+  };
+
   return (
     <div className="absolute" style={{ left: position.x, top: position.y }}>
       <div
-        ref={dragRef}
-        onMouseDown={onMouseDown}
-        className="bg-black/75 w-[600px] h-[400px] rounded-lg overflow-hidden shadow-lg mx-4 sm:mx-0"
+        ref={terminalRef}
+        className="relative shadow-lg mx-4 sm:mx-0"
+        style={{
+          width: `${dimensions.width}px`,
+          height: `${dimensions.height}px`,
+        }}
       >
-        <div className="bg-gray-800 h-6 flex items-center space-x-2 px-4">
+        <div
+          ref={dragRef}
+          onMouseDown={onMouseDown}
+          className="bg-gray-800 h-6 flex items-center space-x-2 px-4 cursor-move"
+        >
           <div className="w-3 h-3 rounded-full bg-red-500"></div>
           <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
           <div className="w-3 h-3 rounded-full bg-green-500"></div>
@@ -230,36 +276,51 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
             johndoe.com ⸺ zsh
           </span>
         </div>
-        <div className="p-4 text-gray-200 font-mono text-xs h-[calc(400px-1.5rem)] flex flex-col">
-          <div className="flex-1 overflow-y-auto">
-            {chatHistory.messages.map((msg, index) => (
-              <div key={index} className="mb-2">
-                {msg.role === "user" ? (
-                  <div className="flex items-start space-x-2">
-                    <span className="text-green-400">{">"}</span>
+        <div
+          className="bg-black/75 overflow-hidden rounded-b-lg"
+          style={{ height: `calc(${dimensions.height}px - 1.5rem)` }}
+        >
+          <div className="p-4 text-gray-200 font-mono text-xs h-full flex flex-col">
+            <div className="flex-1 overflow-y-auto">
+              {chatHistory.messages.map((msg, index) => (
+                <div key={index} className="mb-2">
+                  {msg.role === "user" ? (
+                    <div className="flex items-start space-x-2">
+                      <span className="text-green-400">{">"}</span>
+                      <pre className="whitespace-pre-wrap">{msg.content}</pre>
+                    </div>
+                  ) : (
                     <pre className="whitespace-pre-wrap">{msg.content}</pre>
-                  </div>
-                ) : (
-                  <pre className="whitespace-pre-wrap">{msg.content}</pre>
-                )}
-              </div>
-            ))}
-            {isTyping && <div className="animate-pulse">...</div>}
-            <div ref={messagesEndRef} />
-          </div>
-          <form onSubmit={handleSubmit} className="mt-2">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
-              <span className="whitespace-nowrap">guest@rei root %</span>
-              <input
-                type="text"
-                value={chatHistory.input}
-                onChange={handleInputChange}
-                className="w-full sm:flex-1 bg-transparent outline-none text-white placeholder-gray-400"
-                placeholder={placeholder}
-              />
+                  )}
+                </div>
+              ))}
+              {isTyping && <div className="animate-pulse">...</div>}
+              <div ref={messagesEndRef} />
             </div>
-          </form>
+            <form onSubmit={handleSubmit} className="mt-2">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
+                <span className="whitespace-nowrap">guest@rei root %</span>
+                <input
+                  type="text"
+                  value={chatHistory.input}
+                  onChange={handleInputChange}
+                  className="w-full sm:flex-1 bg-transparent outline-none text-white placeholder-gray-400"
+                  placeholder={placeholder}
+                />
+              </div>
+            </form>
+          </div>
         </div>
+
+        <div
+          className="absolute bottom-0 right-0 w-4 h-4 cursor-se-resize"
+          onMouseDown={startResize}
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)",
+            backgroundSize: "3px 3px",
+          }}
+        ></div>
       </div>
     </div>
   );
