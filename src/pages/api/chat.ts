@@ -1,5 +1,5 @@
-import type { APIRoute } from 'astro';
-import OpenAI from 'openai';
+import type { APIRoute } from "astro";
+import OpenAI from "openai";
 
 const openai = new OpenAI({
   apiKey: import.meta.env.OPENAI_API_KEY,
@@ -10,7 +10,7 @@ export const POST: APIRoute = async ({ request }) => {
     const body = await request.json();
 
     const completion = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
+      model: "gpt-3.5-turbo",
       messages: body.messages,
       temperature: 0.7,
       max_tokens: 500,
@@ -23,21 +23,23 @@ export const POST: APIRoute = async ({ request }) => {
       {
         status: 200,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-      },
+      }
     );
-  } catch {
+  } catch (error) {
+    console.error(error);
+
     return new Response(
       JSON.stringify({
-        error: 'Failed to generate response',
+        error: "Failed to generate response",
       }),
       {
         status: 500,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-      },
+      }
     );
   }
 };
