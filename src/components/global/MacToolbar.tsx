@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 import { MdWifi } from "react-icons/md";
 import { FaApple } from "react-icons/fa";
-import {
-  IoSearchSharp,
-  IoBatteryHalfOutline,
-  IoCellular,
-} from "react-icons/io5";
-import { VscVscode } from "react-icons/vsc";
+import { IoBatteryHalfOutline, IoCellular } from "react-icons/io5";
 
 export default function MacToolbar() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -46,10 +41,6 @@ export default function MacToolbar() {
     return `${hour}:${minute}`;
   };
 
-  const handleVSCodeClick = () => {
-    window.location.href = "vscode:/";
-  };
-
   return (
     <>
       <div className="sticky top-0 z-50 md:hidden bg-transparent text-white h-12 px-8 flex items-center justify-between text-base font-medium">
@@ -75,14 +66,6 @@ export default function MacToolbar() {
           <span className="cursor-default">Help</span>
         </div>
         <div className="flex items-center space-x-4">
-          <VscVscode
-            size={16}
-            className="cursor-default hover:opacity-80 transition-opacity"
-            onClick={handleVSCodeClick}
-            title="Open in VSCode"
-          />
-          <MdWifi size={16} />
-          <IoSearchSharp size={16} />
           <span className="cursor-default">
             {formatMacDate(currentDateTime)}
           </span>
