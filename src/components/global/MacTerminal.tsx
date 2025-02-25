@@ -178,7 +178,7 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
           { role: 'assistant', content: data.message },
         ],
       }));
-    } catch (error) {
+    } catch {
       setChatHistory((prev) => ({
         ...prev,
         messages: [

@@ -10,7 +10,6 @@ import { VscVscode } from 'react-icons/vsc';
 
 export default function MacToolbar() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
-  const a = 1;
 
   useEffect(() => {
     const timer = setInterval(() => {

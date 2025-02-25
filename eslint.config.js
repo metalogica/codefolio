@@ -1,26 +1,50 @@
-import eslint from '@eslint/js';
-import eslintPluginAstro from 'eslint-plugin-astro';
-import tseslint from 'typescript-eslint';
+import eslint from "@eslint/js";
+import eslintPluginAstro from "eslint-plugin-astro";
+import tseslint from "typescript-eslint";
 
 export default [
-  eslint.configs.recommended,
-  ...eslintPluginAstro.configs.recommended,
+  {
+    ignores: [
+      ".astro/**",
+      ".vercel/**",
+      "dist/**",
+      "node_modules/**",
+      "*.config.js",
+      "*.config.mjs",
+    ],
+  },
   ...tseslint.configs.recommended,
   {
-    files: ['**/*.js', '**/*.ts', '**/*.tsx', '**/*.astro'],
+    files: ["**/*.js", "**/*.ts", "**/*.tsx"],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+      },
+    },
     rules: {
-      'astro/no-set-html-directive': 'error',
-      'astro/no-unused-css-selector': 'warn',
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+        },
+      ],
+      "no-console": "warn",
+      "prefer-const": "error",
+    },
+  },
 
-      'no-unused-vars': 'warn',
-      'no-console': 'warn',
-      'no-undef': 'error',
-      'prefer-const': 'warn',
-
-      semi: ['error', 'always'],
-      quotes: ['error', 'single'],
-      indent: ['error', 2],
-      'comma-dangle': ['error', 'always-multiline'],
+  ...eslintPluginAstro.configs.recommended,
+  {
+    files: ["**/*.astro"],
+    rules: {
+      "astro/no-set-html-directive": "error",
+      "astro/no-unused-css-selector": "warn",
+      semi: ["error", "always"],
+      quotes: ["error", "single"],
+      indent: ["error", 2],
     },
   },
 ];
