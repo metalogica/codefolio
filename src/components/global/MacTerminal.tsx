@@ -11,13 +11,7 @@ type ChatHistory = {
   input: string;
 };
 
-const PLACEHOLDER_MESSAGES = [
-  "Type your question...",
-  "How old are you?",
-  "What are your skills?",
-  "Where are you located?",
-  "What projects have you worked on?",
-];
+const PLACEHOLDER_MESSAGES = [""];
 
 export default function MacTerminal() {
   const [chatHistory, setChatHistory] = useState<ChatHistory>({
