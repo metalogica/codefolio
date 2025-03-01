@@ -4,12 +4,11 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import vercel from "@astrojs/vercel";
 import sitemap from "@astrojs/sitemap";
+import mdx from "@astrojs/mdx";
 
 export default defineConfig({
   site: "https://rei.gg",
-
   trailingSlash: "never",
-
   vite: {
     plugins: [tailwindcss()],
     server: {
@@ -17,6 +16,7 @@ export default defineConfig({
     },
   },
   integrations: [
+    mdx(), // Remove custom remark plugins temporarily
     react(),
     sitemap({
       serialize: (item) => {
@@ -25,7 +25,13 @@ export default defineConfig({
       },
     }),
   ],
-
+  markdown: {
+    // Use standard Shiki configuration
+    shikiConfig: {
+      theme: "github-dark",
+      wrap: true,
+    },
+  },
   adapter: vercel(),
   output: "server",
   devToolbar: {
