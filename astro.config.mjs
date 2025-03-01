@@ -4,6 +4,8 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import vercel from "@astrojs/vercel";
 import sitemap from "@astrojs/sitemap";
+import mdx from "@astrojs/mdx";
+import remarkShikiTwoslash from "remark-shiki-twoslash";
 
 export default defineConfig({
   site: "https://rei.gg",
@@ -16,7 +18,19 @@ export default defineConfig({
       allowedHosts: [""],
     },
   },
+
   integrations: [
+    mdx({
+      remarkPlugins: [
+        [
+          remarkShikiTwoslash,
+          {
+            hovers: true,
+            themes: ["github-dark"],
+          },
+        ],
+      ],
+    }),
     react(),
     sitemap({
       serialize: (item) => {
@@ -25,6 +39,15 @@ export default defineConfig({
       },
     }),
   ],
+
+  markdown: {
+    shikiConfig: {
+      // @ts-ignore - shiki config is not typed
+      langs: ["typescript"],
+      theme: "github-dark",
+      wrap: true,
+    },
+  },
 
   adapter: vercel(),
   output: "server",

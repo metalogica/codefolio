@@ -1,0 +1,37 @@
+---
+title: Advanced TypeScript Generics
+date: 2023-09-01
+---
+
+# Advanced TypeScript Generics
+
+Hello world
+
+```ts twoslash
+const hi = 'Hello'
+const msg = `${hi}, world`
+//    ^?
+
+export const makeSelectors = <
+  TSource,
+>() => {
+  const selectorsFn =
+    <TSelectors extends Record<string, (source: TSource) => any>>
+      (source: TSelectors) => source;
+
+  return selectorsFn;
+};
+
+interface Source {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+}
+
+const selectors = makeSelectors<Source>()({
+  getFullName: (source) =>
+    `${source.firstName} ${source.middleName} ${source.lastName}`,
+  getFirstAndLastName: (source) => `${source.firstName} ${source.lastName}`,
+  getFirstNameLength: (source) => source.firstName.length,
+});
+```
