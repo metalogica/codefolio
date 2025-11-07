@@ -5,7 +5,9 @@ import MacToolbar from "../components/global/MacToolbar";
 import MacTerminal from "../components/global/MacTerminal";
 import MobileDock from "../components/global/MobileDock";
 import DesktopDock from "../components/global/DesktopDock";
+import AboutWindow from "../components/global/AboutWindow";
 import { FaRegFileAlt } from "react-icons/fa";
+import { FaInfoCircle } from "react-icons/fa";
 
 interface AppLayoutProps {
   initialBg: string;
@@ -22,18 +24,26 @@ interface DesktopIcon {
 
 const CV_URI = "/rj-cv-2025-02-18.pdf" as const;
 
-const desktopIcons: DesktopIcon[] = [
-  {
-    id: "resume",
-    name: "cv.pdf",
-    icon: <FaRegFileAlt className="text-gray-500" size={36} />,
-    type: "file",
-    onClick: () => window.open(CV_URI, "_blank"),
-  },
-];
-
 export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
   const [currentBg, setCurrentBg] = useState<string>(initialBg);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
+
+  const desktopIcons: DesktopIcon[] = [
+    {
+      id: "resume",
+      name: "cv.pdf",
+      icon: <FaRegFileAlt className="text-gray-500" size={36} />,
+      type: "file",
+      onClick: () => window.open(CV_URI, "_blank"),
+    },
+    {
+      id: "about",
+      name: "About Me",
+      icon: <FaInfoCircle className="text-blue-400" size={36} />,
+      type: "app",
+      onClick: () => setIsAboutOpen(true),
+    },
+  ];
 
   useEffect(() => {
     const lastBg = localStorage.getItem("lastBackground");
@@ -82,6 +92,14 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
           <MacTerminal />
         </div>
       </div>
+
+      {isAboutOpen && (
+        <div className="absolute inset-0 z-25 pointer-events-none">
+          <div className="pointer-events-auto">
+            <AboutWindow onClose={() => setIsAboutOpen(false)} />
+          </div>
+        </div>
+      )}
 
       <div className="relative z-30">
         <MobileDock />
