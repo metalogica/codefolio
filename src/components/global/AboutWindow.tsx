@@ -232,7 +232,8 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                     <strong>Warm Culture {">"} Cold Culture</strong>: I'm
                     fundamentally a very relational person. I think it's
                     important that people engage with each other on an affective
-                    as well as rational level.
+                    as well as rational level, and I always take a deep interest
+                    in all the the people I meet.
                   </li>
                   <li>
                     <strong>Post-humanism {">"} Humanism</strong>: I believe
@@ -251,10 +252,10 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                 </h3>
                 <ul className="list-disc list-inside space-y-1 text-gray-300">
                   <li>
-                    <strong>When have I showed resilience?</strong>: I've jumped
-                    into new plateaus multiple times in my life. My B.A. was in
-                    literature because I just wanted time to spend hours in the
-                    library reading everything from history to economics to
+                    <strong>I am an intensely cerebral person</strong>: I've
+                    jumped across domains multiple times in my life. My B.A. was
+                    in literature because I just wanted time to spend hours in
+                    the library reading everything from history to economics to
                     philosophy so I chose an 'easy' subject that would allow me
                     to write an essay 1 night before a deadline. With this free
                     time I read A LOT and still graduated with first-class
@@ -267,8 +268,8 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                     'Hello World' program in Ruby in my early twenties.
                     Fast-forward five years later an I'm managing a team of 5
                     software engineers at a Canadian fintech who are all on
-                    paper far more qualified than I was. And they respect me. I
-                    then ditched the security of a high-salary to jump into a
+                    paper far more qualified than me. And they respect me. I
+                    then ditched the security of a high-salary to create my own
                     startup at the intersection of DeSci and prediction markets.
                     I'm finally happy where I landed; as a founder I can
                     capitalize on my skills as a generalist with a technical
