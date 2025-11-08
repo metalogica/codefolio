@@ -212,6 +212,32 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
             <div className="space-y-4">
               <section>
                 <h3 className="text-lg font-semibold text-gray-100 mb-2">
+                  If you want to reduce me to an algorithm
+                </h3>
+                <ul className="list-disc list-inside space-y-1 text-gray-300">
+                  <li>MBTI: ENFJ</li>
+                  <li>Enneagram: Type One</li>
+                  <li>Sun sign: Libra</li>
+                  <li>Ascendant: Scorpio</li>
+                </ul>
+              </section>
+              <section>
+                <h3 className="text-lg font-semibold text-gray-100 mb-2">
+                  To get me yapping just mention...
+                </h3>
+                <ul className="list-disc list-inside space-y-1 text-gray-300">
+                  <li>Prediction markets</li>
+                  <li>Finance & crypto, esp. AMMs, Regen & Public Goods</li>
+                  <li>Macroeconomics & World History</li>
+                  <li>AI & Consciousness</li>
+                  <li>
+                    Posthuman Ethics, esp. human-machine integration via
+                    brain-computer-interfaces
+                  </li>
+                </ul>
+              </section>
+              <section>
+                <h3 className="text-lg font-semibold text-gray-100 mb-2">
                   My worldview
                 </h3>
                 <ul className="list-disc list-inside space-y-1 text-gray-300">
@@ -227,6 +253,10 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                       Risk Appetite {">"} Imagination {">"} EQ {">"} IQ
                     </strong>
                     : I believe success in the world is defined in that order.
+                  </li>
+                  <li>
+                    <strong>Action {">"} Theory</strong>: Elegant execution is
+                    itself a beauty idea.
                   </li>
                   <li>
                     <strong>Warm Culture {">"} Cold Culture</strong>: I'm
@@ -252,28 +282,59 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                 </h3>
                 <ul className="list-disc list-inside space-y-1 text-gray-300">
                   <li>
-                    <strong>I am an intensely cerebral person</strong>: I've
-                    jumped across domains multiple times in my life. My B.A. was
-                    in literature because I just wanted time to spend hours in
-                    the library reading everything from history to economics to
-                    philosophy so I chose an 'easy' subject that would allow me
-                    to write an essay 1 night before a deadline. With this free
-                    time I read A LOT and still graduated with first-class
-                    honours despite being absent from most lectures. I then
-                    jumped directly into an M.A. in Political Economy and taught
-                    myself multi-variable calculus as part of it graduating the
-                    top of my class that year beating a bunch of people that did
-                    their bachelors program in the subject area. Then I jumped
-                    into tech. As a self-taught programmer I wrote my first
-                    'Hello World' program in Ruby in my early twenties.
+                    <strong>I've been through a TBI</strong>: I had a bizarre
+                    reaction to a conventional drug during medical treatment
+                    that caused some pretty nasty psychological issues including
+                    chronic fatigue, derealisation and cognitive deficits. Noone
+                    knew how to diagnose my condition. It lasted at least 18
+                    months and during that period I was under heavy stress at
+                    work. Despite that, I managed to keep my job and even get
+                    promoted. I learned many things during this period,
+                    including the true meaning of resilience, and it deepened my
+                    capacity to believe in myself to solve my own problems. I
+                    had to maintain religious discipline on sleep habits,
+                    exercise and mindfulness practice. I also researched all
+                    kinds of elective therapy from supplements to neuro-feedback
+                    therapy.
+                  </li>
+                  <li>
+                    <strong>I am an autodictat</strong>: I've jumped across
+                    domains multiple times in my life. My B.A. was in
+                    literature. I chose an 'easy' subject that would allow me to
+                    renage on course material and spend hours in the library.
+                    With this free time I read everything I wanted from history
+                    to economics to philosophy and still graduated with
+                    first-class honours despite being absent from most lectures.
+                    I then jumped directly into an M.A. in Political Economy and
+                    taught myself multi-variable calculus as part of it
+                    graduating the top of my class that year beating a bunch of
+                    people that did their bachelors program in the subject area.
+                    Then I jumped into tech. As a self-taught programmer I wrote
+                    my first 'Hello World' program in Ruby in my early twenties.
                     Fast-forward five years later an I'm managing a team of 5
                     software engineers at a Canadian fintech who are all on
-                    paper far more qualified than me. And they respect me. I
-                    then ditched the security of a high-salary to create my own
-                    startup at the intersection of DeSci and prediction markets.
-                    I'm finally happy where I landed; as a founder I can
-                    capitalize on my skills as a generalist with a technical
-                    edge.
+                    paper far more qualified than me. I then ditched the
+                    security of a high-salary to create my own startup at the
+                    intersection of DeSci and prediction markets. I'm finally
+                    happy where I landed; as a founder I can capitalize on my
+                    skills as a generalist with a technical edge.
+                  </li>
+                  <li>
+                    <strong>
+                      I was brought up in an entrepreneurial environment
+                    </strong>
+                    : My parents weren't great as parents but they were great
+                    business people. During retirement my father poured all his
+                    life-saving into a high-risk startup. The business was
+                    eventually a success and they managed to sell it many years
+                    later. I spent a couple of years working with them. This
+                    experience gave me my first insight into some very important
+                    business principles. I'll never forget how my father decided
+                    to commercialise technology the university R&D department
+                    advised as 'premature' for the market. But it was 'good
+                    enough' to meet some commercial demand. And with that
+                    monetisation they bootstrapped the rest of the technical
+                    development.
                   </li>
                 </ul>
               </section>
