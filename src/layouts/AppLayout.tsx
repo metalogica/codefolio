@@ -105,16 +105,18 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
       )}
 
       {isAboutOpen && (
-        <div className="absolute inset-0 z-25 pointer-events-none">
-          <div className="pointer-events-auto">
+        <div className="absolute inset-0 z-25 pointer-events-auto">
+          <div className="absolute inset-0" onClick={() => setIsAboutOpen(false)} />
+          <div className="relative pointer-events-auto">
             <AboutWindow onClose={() => setIsAboutOpen(false)} />
           </div>
         </div>
       )}
 
       {isSocialsOpen && (
-        <div className="absolute inset-0 z-25 pointer-events-none">
-          <div className="pointer-events-auto">
+        <div className="absolute inset-0 z-25 pointer-events-auto">
+          <div className="absolute inset-0" onClick={() => setIsSocialsOpen(false)} />
+          <div className="relative pointer-events-auto">
             <SocialsWindow onClose={() => setIsSocialsOpen(false)} />
           </div>
         </div>
