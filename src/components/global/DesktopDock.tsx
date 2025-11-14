@@ -3,7 +3,15 @@ import { BsGithub } from "react-icons/bs";
 import { IoIosMail } from "react-icons/io";
 import { RiTerminalFill } from "react-icons/ri";
 
-export default function DesktopDock() {
+interface DesktopDockProps {
+  isTerminalOpen: boolean;
+  onTerminalClick: () => void;
+}
+
+export default function DesktopDock({
+  isTerminalOpen,
+  onTerminalClick,
+}: DesktopDockProps) {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
 
   const handleEmailClick = () => {
@@ -84,6 +92,7 @@ export default function DesktopDock() {
           </div>
 
           <button
+            onClick={onTerminalClick}
             onMouseEnter={() => setHoveredIcon("terminal")}
             onMouseLeave={() => setHoveredIcon(null)}
             className="relative"
@@ -96,6 +105,9 @@ export default function DesktopDock() {
                 </div>
               </div>
             </div>
+            {isTerminalOpen && (
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-green-400 rounded-full shadow-[0_0_8px_rgba(74,222,128,0.8)]" />
+            )}
             {hoveredIcon === "terminal" && <Tooltip text="Terminal" />}
           </button>
         </div>

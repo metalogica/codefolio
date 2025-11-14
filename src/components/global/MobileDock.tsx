@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { BsGithub } from "react-icons/bs";
 import { IoIosMail } from "react-icons/io";
+import { RiTerminalFill } from "react-icons/ri";
 
-export default function MobileDock() {
+interface MobileDockProps {
+  onTerminalClick: () => void;
+}
+
+export default function MobileDock({ onTerminalClick }: MobileDockProps) {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
 
   const handleEmailClick = () => {
@@ -69,6 +74,18 @@ export default function MobileDock() {
             </div>
           </div>
           {hoveredIcon === "calendar" && <Tooltip text="Book a Call" />}
+        </button>
+
+        <button
+          onClick={onTerminalClick}
+          className="flex flex-col items-center cursor-pointer"
+        >
+          <div className="w-14 h-14 rounded-2xl overflow-hidden shadow-lg relative">
+            <div className="absolute inset-0 bg-gradient-to-b from-gray-300 to-gray-500 rounded-xl"></div>
+            <div className="absolute inset-[2px] rounded-xl bg-black flex items-center justify-center">
+              <RiTerminalFill size={24} className="text-white" />
+            </div>
+          </div>
         </button>
       </div>
     </div>

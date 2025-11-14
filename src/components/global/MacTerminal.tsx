@@ -13,7 +13,11 @@ type ChatHistory = {
 
 const PLACEHOLDER_MESSAGES = [""];
 
-export default function MacTerminal() {
+interface MacTerminalProps {
+  onClose: () => void;
+}
+
+export default function MacTerminal({ onClose }: MacTerminalProps) {
   const [chatHistory, setChatHistory] = useState<ChatHistory>({
     messages: [],
     input: "",
@@ -282,7 +286,10 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
           onMouseDown={onMouseDown}
           className="bg-gray-800 h-6 flex items-center space-x-2 px-4 cursor-move"
         >
-          <div className="w-3 h-3 rounded-full bg-red-500"></div>
+          <div
+            className="w-3 h-3 rounded-full bg-red-500 cursor-pointer hover:bg-red-600"
+            onClick={onClose}
+          ></div>
           <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
           <div className="w-3 h-3 rounded-full bg-green-500"></div>
           <span className="text-sm text-gray-300 flex-grow text-center font-semibold flex items-center justify-center gap-2">

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { FaInfoCircle } from "react-icons/fa";
-import profilePic from "../../assets/images/profile-pic.jpg";
+import profilePic1 from "../../assets/images/profile-pic-1.jpg";
 
 interface AboutWindowProps {
   onClose: () => void;
@@ -204,7 +204,7 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
           <div className="p-6 text-gray-200 h-full overflow-y-auto">
             <div className="flex flex-col items-center mb-6">
               <img
-                src={profilePic.src}
+                src={profilePic1.src}
                 alt="Rei Jarram"
                 className="w-100 h-140 object-cover mb-4"
               />
@@ -212,13 +212,14 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
             <div className="space-y-4">
               <section>
                 <h3 className="text-lg font-semibold text-gray-100 mb-2">
-                  If you want to reduce me to an algorithm
+                  My types
                 </h3>
                 <ul className="list-disc list-inside space-y-1 text-gray-300">
                   <li>MBTI: ENFJ</li>
                   <li>Enneagram: Type One</li>
                   <li>Sun sign: Libra</li>
                   <li>Ascendant: Scorpio</li>
+                  <li>Human Design: Reflector</li>
                 </ul>
               </section>
               <section>

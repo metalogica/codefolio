@@ -6,8 +6,8 @@ import MacTerminal from "../components/global/MacTerminal";
 import MobileDock from "../components/global/MobileDock";
 import DesktopDock from "../components/global/DesktopDock";
 import AboutWindow from "../components/global/AboutWindow";
-import { FaRegFileAlt } from "react-icons/fa";
-import { FaInfoCircle } from "react-icons/fa";
+import SocialsWindow from "../components/global/SocialsWindow";
+import { FaRegFileAlt, FaInfoCircle, FaShareAlt } from "react-icons/fa";
 
 interface AppLayoutProps {
   initialBg: string;
@@ -27,6 +27,8 @@ const CV_URI = "/rj-cv-2025-02-18.pdf" as const;
 export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
   const [currentBg, setCurrentBg] = useState<string>(initialBg);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [isSocialsOpen, setIsSocialsOpen] = useState(false);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(true);
 
   const desktopIcons: DesktopIcon[] = [
     {
@@ -42,6 +44,13 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
       icon: <FaInfoCircle className="text-blue-400" size={36} />,
       type: "app",
       onClick: () => setIsAboutOpen(true),
+    },
+    {
+      id: "socials",
+      name: "Socials",
+      icon: <FaShareAlt className="text-green-400" size={36} />,
+      type: "app",
+      onClick: () => setIsSocialsOpen(true),
     },
   ];
 
@@ -87,11 +96,13 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
         </div>
       </div>
 
-      <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-        <div className="pointer-events-auto">
-          <MacTerminal />
+      {isTerminalOpen && (
+        <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+          <div className="pointer-events-auto">
+            <MacTerminal onClose={() => setIsTerminalOpen(false)} />
+          </div>
         </div>
-      </div>
+      )}
 
       {isAboutOpen && (
         <div className="absolute inset-0 z-25 pointer-events-none">
@@ -101,9 +112,20 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
         </div>
       )}
 
+      {isSocialsOpen && (
+        <div className="absolute inset-0 z-25 pointer-events-none">
+          <div className="pointer-events-auto">
+            <SocialsWindow onClose={() => setIsSocialsOpen(false)} />
+          </div>
+        </div>
+      )}
+
       <div className="relative z-30">
-        <MobileDock />
-        <DesktopDock />
+        <MobileDock onTerminalClick={() => setIsTerminalOpen(!isTerminalOpen)} />
+        <DesktopDock
+          isTerminalOpen={isTerminalOpen}
+          onTerminalClick={() => setIsTerminalOpen(!isTerminalOpen)}
+        />
       </div>
     </div>
   );
