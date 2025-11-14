@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { FaRegFolderClosed } from "react-icons/fa6";
+import { IoSend } from "react-icons/io5";
 
 type Message = {
   role: "system" | "user" | "assistant";
@@ -363,15 +364,24 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
               <div ref={messagesEndRef} />
             </div>
             <form onSubmit={handleSubmit} className="mt-2">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
-                <span className="whitespace-nowrap">guest@rei root %</span>
+              <div className="flex items-center space-x-2">
+                <span className="whitespace-nowrap text-xs sm:text-inherit">guest@rei root %</span>
                 <input
                   type="text"
                   value={chatHistory.input}
                   onChange={handleInputChange}
-                  className="w-full sm:flex-1 bg-transparent outline-none text-white placeholder-gray-400"
+                  className="flex-1 bg-transparent outline-none text-white placeholder-gray-400"
                   placeholder={placeholder}
                 />
+                {isMobile && (
+                  <button
+                    type="submit"
+                    disabled={!chatHistory.input.trim() || isTyping}
+                    className="flex-shrink-0 p-2 bg-green-500/80 hover:bg-green-600 active:bg-green-700 rounded disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  >
+                    <IoSend size={16} className="text-white" />
+                  </button>
+                )}
               </div>
             </form>
           </div>
