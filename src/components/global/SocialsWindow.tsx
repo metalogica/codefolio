@@ -109,7 +109,8 @@ export default function SocialsWindow({ onClose }: SocialsWindowProps) {
   };
 
   const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (dragRef.current && e.touches.length === 1) {
+    // Disable dragging on mobile for better UX
+    if (dragRef.current && e.touches.length === 1 && !isMobile) {
       e.preventDefault();
       const touch = e.touches[0];
       const startX = touch.pageX - position.x;
@@ -226,11 +227,11 @@ export default function SocialsWindow({ onClose }: SocialsWindowProps) {
           ref={dragRef}
           onMouseDown={onMouseDown}
           onTouchStart={onTouchStart}
-          className="bg-gray-800 h-6 flex items-center space-x-2 px-4 cursor-move touch-none select-none"
+          className={`bg-gray-800 h-6 flex items-center space-x-2 px-4 ${!isMobile ? 'cursor-move touch-none' : ''} select-none`}
           style={{
             WebkitUserSelect: "none",
             WebkitTouchCallout: "none",
-            touchAction: "none",
+            ...((!isMobile && { touchAction: "none" })),
           }}
         >
           <div

@@ -43,6 +43,15 @@ export default function MacTerminal({ onClose }: MacTerminalProps) {
           navigator.userAgent
         ) || window.innerWidth < 768; // Combine UA check with width for reliability
       setIsMobile(isMobileDevice);
+
+      // Adjust position and dimensions for mobile
+      if (isMobileDevice) {
+        setPosition({ x: 10, y: 80 });
+        setDimensions({ width: window.innerWidth - 20, height: window.innerHeight - 200 });
+      } else {
+        setPosition({ x: 150, y: 150 });
+        setDimensions({ width: 600, height: 400 });
+      }
     };
 
     checkMobile();
@@ -137,16 +146,17 @@ Response rules:
 If a question is unrelated to my work or portfolio, say: "That's outside my area of expertise. Feel free to email me at rjarram@me.com and we can discuss further!"`;
 
   useEffect(() => {
-    if (!isMobile) {
-      setChatHistory((prev) => ({
-        ...prev,
-        messages: [
-          ...prev.messages,
-          { role: "assistant", content: welcomeMessage },
-        ],
-      }));
-    }
-  }, [isMobile]);
+    // Only add welcome message once on mount
+    setChatHistory((prev) => {
+      if (prev.messages.length === 0) {
+        return {
+          ...prev,
+          messages: [{ role: "assistant", content: welcomeMessage }],
+        };
+      }
+      return prev;
+    });
+  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -213,7 +223,7 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
   };
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (dragRef.current) {
+    if (dragRef.current && !isMobile) {
       const startX = e.pageX - position.x;
       const startY = e.pageY - position.y;
 
@@ -231,6 +241,34 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
 
       document.addEventListener("mousemove", onMouseMove);
       document.addEventListener("mouseup", onMouseUp);
+    }
+  };
+
+  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (dragRef.current && e.touches.length === 1 && !isMobile) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const startX = touch.pageX - position.x;
+      const startY = touch.pageY - position.y;
+
+      const onTouchMove = (moveEvent: TouchEvent) => {
+        moveEvent.preventDefault();
+        if (moveEvent.touches.length === 1) {
+          const moveTouch = moveEvent.touches[0];
+          setPosition({
+            x: moveTouch.pageX - startX,
+            y: moveTouch.pageY - startY,
+          });
+        }
+      };
+
+      const onTouchEnd = () => {
+        document.removeEventListener("touchmove", onTouchMove);
+        document.removeEventListener("touchend", onTouchEnd);
+      };
+
+      document.addEventListener("touchmove", onTouchMove, { passive: false });
+      document.addEventListener("touchend", onTouchEnd);
     }
   };
 
@@ -267,15 +305,11 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
     document.addEventListener("mouseup", onMouseUp);
   };
 
-  if (isMobile) {
-    return null;
-  }
-
   return (
     <div className="absolute" style={{ left: position.x, top: position.y }}>
       <div
         ref={terminalRef}
-        className="relative shadow-lg mx-4 sm:mx-0"
+        className="relative shadow-lg"
         style={{
           width: `${dimensions.width}px`,
           height: `${dimensions.height}px`,
@@ -284,11 +318,21 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
         <div
           ref={dragRef}
           onMouseDown={onMouseDown}
-          className="bg-gray-800 h-6 flex items-center space-x-2 px-4 cursor-move"
+          onTouchStart={onTouchStart}
+          className="bg-gray-800 h-6 flex items-center space-x-2 px-4 cursor-move touch-none select-none"
+          style={{
+            WebkitUserSelect: "none",
+            WebkitTouchCallout: "none",
+            touchAction: "none",
+          }}
         >
           <div
             className="w-3 h-3 rounded-full bg-red-500 cursor-pointer hover:bg-red-600"
             onClick={onClose}
+            onTouchEnd={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
           ></div>
           <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
           <div className="w-3 h-3 rounded-full bg-green-500"></div>
@@ -333,15 +377,17 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
           </div>
         </div>
 
-        <div
-          className="absolute bottom-0 right-0 w-4 h-4 cursor-se-resize"
-          onMouseDown={startResize}
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)",
-            backgroundSize: "3px 3px",
-          }}
-        ></div>
+        {!isMobile && (
+          <div
+            className="absolute bottom-0 right-0 w-4 h-4 cursor-se-resize"
+            onMouseDown={startResize}
+            style={{
+              backgroundImage:
+                "radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)",
+              backgroundSize: "3px 3px",
+            }}
+          ></div>
+        )}
       </div>
     </div>
   );

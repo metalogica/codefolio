@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import { MdWifi } from "react-icons/md";
 import { FaApple } from "react-icons/fa";
-import {
-  IoSearchSharp,
-  IoBatteryHalfOutline,
-  IoCellular,
-} from "react-icons/io5";
+import { IoSearchSharp } from "react-icons/io5";
 
 export default function MacToolbar() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -35,48 +31,25 @@ export default function MacToolbar() {
     )}:${minute} ${period}`;
   };
 
-  const formatIPhoneTime = (date: Date) => {
-    let hour = date.getHours();
-    const minute = date.getMinutes().toString().padStart(2, "0");
-
-    hour = hour % 12;
-    hour = hour ? hour : 12;
-
-    return `${hour}:${minute}`;
-  };
-
   return (
-    <>
-      <div className="sticky top-0 z-50 md:hidden bg-transparent text-white h-12 px-8 flex items-center justify-between text-base font-medium">
-        <span className="font-semibold">
-          {formatIPhoneTime(currentDateTime)}
+    <div className="sticky top-0 z-50 hidden md:flex bg-black/20 backdrop-blur-md text-white h-6 px-4 items-center justify-between text-sm">
+      <div className="flex items-center space-x-4">
+        <FaApple size={16} />
+        <span className="font-semibold cursor-default">rei jarram</span>
+        <span className="cursor-default">File</span>
+        <span className="cursor-default">Edit</span>
+        <span className="cursor-default">View</span>
+        <span className="cursor-default">Go</span>
+        <span className="cursor-default">Window</span>
+        <span className="cursor-default">Help</span>
+      </div>
+      <div className="flex items-center space-x-4">
+        <MdWifi size={16} />
+        <IoSearchSharp size={16} />
+        <span className="cursor-default">
+          {formatMacDate(currentDateTime)}
         </span>
-        <div className="flex items-center gap-1.5">
-          <IoCellular size={20} />
-          <MdWifi size={20} />
-          <IoBatteryHalfOutline size={24} />
-        </div>
       </div>
-
-      <div className="sticky top-0 z-50 hidden md:flex bg-black/20 backdrop-blur-md text-white h-6 px-4 items-center justify-between text-sm">
-        <div className="flex items-center space-x-4">
-          <FaApple size={16} />
-          <span className="font-semibold cursor-default">rei jarram</span>
-          <span className="cursor-default">File</span>
-          <span className="cursor-default">Edit</span>
-          <span className="cursor-default">View</span>
-          <span className="cursor-default">Go</span>
-          <span className="cursor-default">Window</span>
-          <span className="cursor-default">Help</span>
-        </div>
-        <div className="flex items-center space-x-4">
-          <MdWifi size={16} />
-          <IoSearchSharp size={16} />
-          <span className="cursor-default">
-            {formatMacDate(currentDateTime)}
-          </span>
-        </div>
-      </div>
-    </>
+    </div>
   );
 }

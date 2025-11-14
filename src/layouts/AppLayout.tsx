@@ -28,7 +28,7 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
   const [currentBg, setCurrentBg] = useState<string>(initialBg);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
-  const [isTerminalOpen, setIsTerminalOpen] = useState(true);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
 
   const desktopIcons: DesktopIcon[] = [
     {
