@@ -52,6 +52,19 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
       type: "app",
       onClick: () => setIsSocialsOpen(true),
     },
+    {
+      id: "ideosphere",
+      name: "Ideosphere",
+      icon: (
+        <img
+          src="/ideosphere-logo.png"
+          alt="Ideosphere"
+          className="w-9 h-9 object-contain"
+        />
+      ),
+      type: "app",
+      onClick: () => window.open("https://ideosphere.io", "_blank"),
+    },
   ];
 
   useEffect(() => {
@@ -106,7 +119,14 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
 
       {isAboutOpen && (
         <div className="absolute inset-0 z-25 pointer-events-auto">
-          <div className="absolute inset-0" onClick={() => setIsAboutOpen(false)} />
+          <div
+            className="absolute inset-0"
+            onClick={() => setIsAboutOpen(false)}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              setIsAboutOpen(false);
+            }}
+          />
           <div className="relative pointer-events-auto">
             <AboutWindow onClose={() => setIsAboutOpen(false)} />
           </div>
@@ -115,7 +135,14 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
 
       {isSocialsOpen && (
         <div className="absolute inset-0 z-25 pointer-events-auto">
-          <div className="absolute inset-0" onClick={() => setIsSocialsOpen(false)} />
+          <div
+            className="absolute inset-0"
+            onClick={() => setIsSocialsOpen(false)}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              setIsSocialsOpen(false);
+            }}
+          />
           <div className="relative pointer-events-auto">
             <SocialsWindow onClose={() => setIsSocialsOpen(false)} />
           </div>

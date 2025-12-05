@@ -240,6 +240,7 @@ export default function SocialsWindow({ onClose }: SocialsWindowProps) {
             className="w-3 h-3 rounded-full bg-red-500 cursor-pointer hover:bg-red-600"
             onClick={onClose}
             onTouchEnd={(e) => {
+              e.preventDefault();
               e.stopPropagation();
               onClose();
             }}

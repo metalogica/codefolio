@@ -176,17 +176,20 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
           ref={dragRef}
           onMouseDown={onMouseDown}
           onTouchStart={onTouchStart}
-          className={`bg-gray-800 h-6 flex items-center space-x-2 px-4 ${!isMobile ? 'cursor-move touch-none' : ''} select-none`}
+          className={`bg-gray-800 h-6 flex items-center space-x-2 px-4 ${
+            !isMobile ? "cursor-move touch-none" : ""
+          } select-none`}
           style={{
             WebkitUserSelect: "none",
             WebkitTouchCallout: "none",
-            ...((!isMobile && { touchAction: "none" })),
+            ...(!isMobile && { touchAction: "none" }),
           }}
         >
           <div
             className="w-3 h-3 rounded-full bg-red-500 cursor-pointer hover:bg-red-600"
             onClick={onClose}
             onTouchEnd={(e) => {
+              e.preventDefault();
               e.stopPropagation();
               onClose();
             }}
@@ -210,7 +213,19 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                 className="w-100 h-140 object-cover mb-4"
               />
             </div>
+
             <div className="space-y-4">
+              <section>
+                <h3 className="text-lg font-semibold text-gray-100 mb-2">
+                  SYN/ACK
+                </h3>
+                I’m a founder and full-stack dev with 5+ years working in crypto
+                & fintech with a heterogenous background that jumps across
+                philosophy, political economy, and fintech. I'm now building at
+                the intersection of DeSci and prediction markets. Outside work
+                I’m an endurance runner, autodidact, and generalist who gets way
+                too excited about tech, AI, and posthuman ethics
+              </section>
               <section>
                 <h3 className="text-lg font-semibold text-gray-100 mb-2">
                   My types
@@ -228,14 +243,12 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                   To get me yapping just mention...
                 </h3>
                 <ul className="list-disc list-inside space-y-1 text-gray-300">
-                  <li>Prediction markets</li>
-                  <li>Finance & crypto, esp. AMMs, Regen & Public Goods</li>
-                  <li>Macroeconomics & World History</li>
-                  <li>AI & Consciousness</li>
                   <li>
-                    Posthuman Ethics, esp. human-machine integration via
-                    brain-computer-interfaces
+                    Finance & crypto-economics, esp. AMMs, prediction markets &
+                    social choice theory in relation top public goods discourse
                   </li>
+                  <li>AI, Consciousness, Gnosticism & Posthuman Ethics</li>
+                  <li>Macroeconomics & World History</li>
                 </ul>
               </section>
               <section>
@@ -340,31 +353,6 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                   </li>
                 </ul>
               </section>
-              {/* <section>
-                <h3 className="text-lg font-semibold text-gray-100 mb-2">
-                  Contact
-                </h3>
-                <p className="text-gray-300">
-                  Email:{" "}
-                  <a
-                    href="mailto:rjarram@me.com"
-                    className="text-blue-400 hover:text-blue-300 underline"
-                  >
-                    rjarram@me.com
-                  </a>
-                </p>
-                <p className="text-gray-300">
-                  GitHub:{" "}
-                  <a
-                    href="https://github.com/metalogica"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-400 hover:text-blue-300 underline"
-                  >
-                    github.com/metalogica
-                  </a>
-                </p>
-              </section> */}
             </div>
           </div>
         </div>

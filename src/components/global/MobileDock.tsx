@@ -39,7 +39,7 @@ export default function MobileDock({ onTerminalClick }: MobileDockProps) {
           className="flex flex-col items-center cursor-pointer"
         >
           <div className="w-14 h-14 bg-gradient-to-t from-blue-600 to-blue-400 rounded-2xl flex items-center justify-center">
-            <IoIosMail size={32} className="text-white" />
+            <IoIosMail size={42} className="text-white" />
           </div>
         </button>
 
@@ -48,7 +48,7 @@ export default function MobileDock({ onTerminalClick }: MobileDockProps) {
           className="flex flex-col items-center cursor-pointer"
         >
           <div className="w-14 h-14 bg-gradient-to-t from-black to-black/60 rounded-2xl flex items-center justify-center">
-            <BsGithub size={28} className="text-white" />
+            <BsGithub size={38} className="text-white" />
           </div>
         </button>
 
