@@ -32,18 +32,18 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
 
   const desktopIcons: DesktopIcon[] = [
     {
-      id: "resume",
-      name: "cv.pdf",
-      icon: <FaRegFileAlt className="text-gray-500" size={36} />,
-      type: "file",
-      onClick: () => window.open(CV_URI, "_blank"),
-    },
-    {
       id: "about",
       name: "About Me",
       icon: <FaInfoCircle className="text-blue-400" size={36} />,
       type: "app",
       onClick: () => setIsAboutOpen(true),
+    },
+    {
+      id: "resume",
+      name: "cv.pdf",
+      icon: <FaRegFileAlt className="text-gray-500" size={36} />,
+      type: "file",
+      onClick: () => window.open(CV_URI, "_blank"),
     },
     {
       id: "socials",
