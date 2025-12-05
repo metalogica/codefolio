@@ -39,7 +39,7 @@ export default function SocialsWindow({ onClose }: SocialsWindowProps) {
     {
       name: "Twitter",
       icon: <FaXTwitter size={48} />,
-      url: "https://twitter.com/0xmetalogica",
+      url: "https://twitter.com/0xmoreofthesame",
       color: "hover:text-sky-400",
     },
     {
@@ -227,11 +227,13 @@ export default function SocialsWindow({ onClose }: SocialsWindowProps) {
           ref={dragRef}
           onMouseDown={onMouseDown}
           onTouchStart={onTouchStart}
-          className={`bg-gray-800 h-6 flex items-center space-x-2 px-4 ${!isMobile ? 'cursor-move touch-none' : ''} select-none`}
+          className={`bg-gray-800 h-6 flex items-center space-x-2 px-4 ${
+            !isMobile ? "cursor-move touch-none" : ""
+          } select-none`}
           style={{
             WebkitUserSelect: "none",
             WebkitTouchCallout: "none",
-            ...((!isMobile && { touchAction: "none" })),
+            ...(!isMobile && { touchAction: "none" }),
           }}
         >
           <div
