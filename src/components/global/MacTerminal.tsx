@@ -48,7 +48,10 @@ export default function MacTerminal({ onClose }: MacTerminalProps) {
       // Adjust position and dimensions for mobile
       if (isMobileDevice) {
         setPosition({ x: 10, y: 80 });
-        setDimensions({ width: window.innerWidth - 20, height: window.innerHeight - 200 });
+        setDimensions({
+          width: window.innerWidth - 20,
+          height: window.innerHeight - 200,
+        });
       } else {
         setPosition({ x: 150, y: 150 });
         setDimensions({ width: 600, height: 400 });
@@ -118,19 +121,9 @@ Example responses:
 Q: "Where do you live?"
 A: "I live in Montreal, QC"
 
-Q: "What's your background?"
-A: "I'm a Full Stack Developer with experience in React, Next.js, and Node.js"
-
-Q: "How old are you?"
-A: "I'm 32 years old"
-
 Core details about me:
 - I'm 32 years old
 - I live in Montreal, QC
-- I'm a Full Stack Developer
-- My email is rjarram@me.com
-- I was born in 1992
-- I was born in Xi'an, China
 
 My technical expertise:
 - Full Stack Development
@@ -365,7 +358,9 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
             </div>
             <form onSubmit={handleSubmit} className="mt-2">
               <div className="flex items-center space-x-2">
-                <span className="whitespace-nowrap text-xs sm:text-inherit">guest@rei root %</span>
+                <span className="whitespace-nowrap text-xs sm:text-inherit">
+                  guest@rei root %
+                </span>
                 <input
                   type="text"
                   value={chatHistory.input}
