@@ -25,7 +25,7 @@ interface DesktopIcon {
 const CV_URI = "/rj-cv-2025-02-18.pdf" as const;
 
 export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
-  const [currentBg, setCurrentBg] = useState<string>(initialBg);
+  const [currentBg] = useState<string>(initialBg);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
@@ -81,16 +81,8 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
   ];
 
   useEffect(() => {
-    const lastBg = localStorage.getItem("lastBackground");
-    if (lastBg === initialBg) {
-      const bgKeys = Object.keys(backgroundMap);
-      const availableBgs = bgKeys.filter((bg) => bg !== lastBg);
-      const newBg =
-        availableBgs[Math.floor(Math.random() * availableBgs.length)];
-      setCurrentBg(newBg);
-    }
     localStorage.setItem("lastBackground", currentBg);
-  }, [initialBg, backgroundMap, currentBg]);
+  }, [currentBg]);
 
   return (
     <div className="relative w-screen h-screen overflow-hidden">
