@@ -65,6 +65,19 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
       type: "app",
       onClick: () => window.open("https://ideosphere.io", "_blank"),
     },
+    {
+      id: "dreamtable",
+      name: "Dreamtable",
+      icon: (
+        <img
+          src="/dreamtable-logo.png"
+          alt="Dreamtable"
+          className="w-9 h-9 object-contain"
+        />
+      ),
+      type: "app",
+      onClick: () => window.open("https://www.dreamtable.io", "_blank"),
+    },
   ];
 
   useEffect(() => {
