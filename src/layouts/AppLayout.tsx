@@ -7,6 +7,7 @@ import MobileDock from "../components/global/MobileDock";
 import DesktopDock from "../components/global/DesktopDock";
 import AboutWindow from "../components/global/AboutWindow";
 import SocialsWindow from "../components/global/SocialsWindow";
+import SpotifyWindow from "../components/global/SpotifyWindow";
 import { FaRegFileAlt, FaInfoCircle, FaShareAlt } from "react-icons/fa";
 
 interface AppLayoutProps {
@@ -29,6 +30,7 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [isSpotifyOpen, setIsSpotifyOpen] = useState(false);
 
   const desktopIcons: DesktopIcon[] = [
     {
@@ -154,11 +156,29 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
         </div>
       )}
 
+      {isSpotifyOpen && (
+        <div className="absolute inset-0 z-25 pointer-events-auto">
+          <div
+            className="absolute inset-0"
+            onClick={() => setIsSpotifyOpen(false)}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              setIsSpotifyOpen(false);
+            }}
+          />
+          <div className="relative pointer-events-auto">
+            <SpotifyWindow onClose={() => setIsSpotifyOpen(false)} />
+          </div>
+        </div>
+      )}
+
       <div className="relative z-30">
         <MobileDock onTerminalClick={() => setIsTerminalOpen(!isTerminalOpen)} />
         <DesktopDock
           isTerminalOpen={isTerminalOpen}
           onTerminalClick={() => setIsTerminalOpen(!isTerminalOpen)}
+          isSpotifyOpen={isSpotifyOpen}
+          onSpotifyClick={() => setIsSpotifyOpen(!isSpotifyOpen)}
         />
       </div>
     </div>

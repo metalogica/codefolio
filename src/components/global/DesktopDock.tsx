@@ -2,15 +2,20 @@ import { useState } from "react";
 import { BsGithub } from "react-icons/bs";
 import { IoIosMail } from "react-icons/io";
 import { RiTerminalFill } from "react-icons/ri";
+import { FaSpotify } from "react-icons/fa";
 
 interface DesktopDockProps {
   isTerminalOpen: boolean;
   onTerminalClick: () => void;
+  isSpotifyOpen: boolean;
+  onSpotifyClick: () => void;
 }
 
 export default function DesktopDock({
   isTerminalOpen,
   onTerminalClick,
+  isSpotifyOpen,
+  onSpotifyClick,
 }: DesktopDockProps) {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
 
@@ -61,6 +66,21 @@ export default function DesktopDock({
               <BsGithub size={45} className="text-gray-100" />
             </div>
             {hoveredIcon === "github" && <Tooltip text="My GitHub" />}
+          </button>
+
+          <button
+            onClick={onSpotifyClick}
+            onMouseEnter={() => setHoveredIcon("spotify")}
+            onMouseLeave={() => setHoveredIcon(null)}
+            className="relative"
+          >
+            <div className="w-14 h-14 bg-gradient-to-t from-green-600 to-green-400 rounded-xl flex items-center justify-center shadow-lg">
+              <FaSpotify size={38} className="text-black" />
+            </div>
+            {isSpotifyOpen && (
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-green-400 rounded-full shadow-[0_0_8px_rgba(74,222,128,0.8)]" />
+            )}
+            {hoveredIcon === "spotify" && <Tooltip text="Spotify" />}
           </button>
 
           <button

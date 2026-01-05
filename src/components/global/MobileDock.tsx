@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BsGithub } from "react-icons/bs";
 import { IoIosMail } from "react-icons/io";
 import { RiTerminalFill } from "react-icons/ri";
+import { FaSpotify } from "react-icons/fa";
 
 interface MobileDockProps {
   onTerminalClick: () => void;
@@ -20,6 +21,12 @@ export default function MobileDock({ onTerminalClick }: MobileDockProps) {
 
   const handleCalendarClick = () => {
     window.open("https://calendly.com/rjarram/30min", "_blank");
+  };
+
+  const handleSpotifyClick = () => {
+    // Spotify is handled by desktop icon only on mobile
+    // Could open Spotify web player or app here if desired
+    window.open("https://open.spotify.com", "_blank");
   };
 
   const Tooltip = ({ text }: { text: string }) => (
@@ -49,6 +56,15 @@ export default function MobileDock({ onTerminalClick }: MobileDockProps) {
         >
           <div className="w-14 h-14 bg-gradient-to-t from-black to-black/60 rounded-2xl flex items-center justify-center">
             <BsGithub size={38} className="text-white" />
+          </div>
+        </button>
+
+        <button
+          onClick={handleSpotifyClick}
+          className="flex flex-col items-center cursor-pointer"
+        >
+          <div className="w-14 h-14 bg-gradient-to-t from-green-600 to-green-400 rounded-2xl flex items-center justify-center">
+            <FaSpotify size={38} className="text-black" />
           </div>
         </button>
 
