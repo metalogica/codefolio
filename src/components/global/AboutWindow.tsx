@@ -202,7 +202,7 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
           </span>
         </div>
         <div
-          className="bg-gray-900/95 overflow-hidden rounded-b-lg backdrop-blur-sm"
+          className="bg-black/75 overflow-hidden rounded-b-lg backdrop-blur-sm"
           style={{ height: `calc(${dimensions.height}px - 1.5rem)` }}
         >
           <div className="p-6 text-gray-200 h-full overflow-y-auto">

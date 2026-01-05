@@ -253,7 +253,7 @@ export default function SocialsWindow({ onClose }: SocialsWindowProps) {
           </span>
         </div>
         <div
-          className="bg-gray-900/95 overflow-hidden rounded-b-lg backdrop-blur-sm"
+          className="bg-black/75 overflow-hidden rounded-b-lg backdrop-blur-sm"
           style={{ height: `calc(${dimensions.height}px - 1.5rem)` }}
         >
           <div className="p-8 text-gray-200 h-full flex items-center justify-center overflow-y-auto">

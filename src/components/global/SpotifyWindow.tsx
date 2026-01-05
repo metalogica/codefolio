@@ -16,7 +16,7 @@ export default function SpotifyWindow({ onClose }: SpotifyWindowProps) {
 
   // Default Spotify embed URL - You can change this to any Spotify playlist, album, or track
   // Format: https://open.spotify.com/embed/[type]/[id]
-  const defaultSpotifyEmbed = "https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"; // Today's Top Hits
+  const defaultSpotifyEmbed = "https://open.spotify.com/embed/playlist/6jo6Plvkdg1BpaWqrBVEwK";
 
   useEffect(() => {
     const checkMobile = () => {
@@ -205,7 +205,7 @@ export default function SpotifyWindow({ onClose }: SpotifyWindowProps) {
           </span>
         </div>
         <div
-          className="bg-gray-900/95 overflow-hidden rounded-b-lg backdrop-blur-sm"
+          className="bg-black/75 overflow-hidden rounded-b-lg backdrop-blur-sm"
           style={{ height: `calc(${dimensions.height}px - 1.5rem)` }}
         >
           <div className="w-full h-full flex items-center justify-center p-4">
