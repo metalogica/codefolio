@@ -41,7 +41,7 @@ export default function MacTerminal({ onClose }: MacTerminalProps) {
     const checkMobile = () => {
       const isMobileDevice =
         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
+          navigator.userAgent,
         ) || window.innerWidth < 768; // Combine UA check with width for reliability
       setIsMobile(isMobileDevice);
 
@@ -73,7 +73,7 @@ export default function MacTerminal({ onClose }: MacTerminalProps) {
         if (placeholder.length === 0) {
           setIsDeleting(false);
           setCurrentPlaceholderIndex(
-            (prev) => (prev + 1) % PLACEHOLDER_MESSAGES.length
+            (prev) => (prev + 1) % PLACEHOLDER_MESSAGES.length,
           );
           timeout = setTimeout(animatePlaceholder, 400);
         } else {
@@ -121,14 +121,8 @@ Example responses:
 Q: "Where do you live?"
 A: "I live in Montreal, QC"
 
-Core details about me:
-- I'm 32 years old
-- I live in Montreal, QC
-
 My technical expertise:
-- Full Stack Development
-- React, Express, Node, Astro, JavaScript, TypeScript
-- Node.js/Express
+- Full Stack AI & Web3 Development
 
 Response rules:
 1. ALWAYS use first-person (I, me, my)
@@ -280,7 +274,7 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
       const newWidth = Math.max(300, startWidth + (moveEvent.clientX - startX));
       const newHeight = Math.max(
         200,
-        startHeight + (moveEvent.clientY - startY)
+        startHeight + (moveEvent.clientY - startY),
       );
 
       setDimensions({

@@ -100,7 +100,7 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
       const newWidth = Math.max(300, startWidth + (moveEvent.clientX - startX));
       const newHeight = Math.max(
         200,
-        startHeight + (moveEvent.clientY - startY)
+        startHeight + (moveEvent.clientY - startY),
       );
 
       setDimensions({
@@ -137,11 +137,11 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
           const moveTouch = moveEvent.touches[0];
           const newWidth = Math.max(
             300,
-            startWidth + (moveTouch.clientX - startX)
+            startWidth + (moveTouch.clientX - startX),
           );
           const newHeight = Math.max(
             200,
-            startHeight + (moveTouch.clientY - startY)
+            startHeight + (moveTouch.clientY - startY),
           );
 
           setDimensions({
@@ -221,10 +221,10 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                 </h3>
                 I’m a founder and full-stack dev with 5+ years working in crypto
                 & fintech with a heterogenous background that jumps across
-                philosophy, political economy, and fintech. I'm now building at
-                the intersection of DeSci and prediction markets. Outside work
-                I’m an endurance runner, autodidact, and generalist who gets way
-                too excited about tech, AI, and posthuman ethics
+                philosophy, economics, and computer science. I'm now building at
+                the intersection of AI & prediction markets. Outside work I’m an
+                endurance runner and autodidact who gets way too excited about
+                nerdy subjects (ACX, Less Wrong etc).
               </section>
               <section>
                 <h3 className="text-lg font-semibold text-gray-100 mb-2">
@@ -234,7 +234,6 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                   <li>MBTI: ENFJ</li>
                   <li>Enneagram: Type One</li>
                   <li>Sun sign: Libra</li>
-                  <li>Ascendant: Scorpio</li>
                   <li>Human Design: Reflector</li>
                 </ul>
               </section>
@@ -244,8 +243,8 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                 </h3>
                 <ul className="list-disc list-inside space-y-1 text-gray-300">
                   <li>
-                    Finance & crypto-economics, esp. AMMs, prediction markets &
-                    social choice theory in relation top public goods discourse
+                    Market microstructure, esp. AMMs, prediction markets &
+                    social choice theory in relation top public goods discourse.
                   </li>
                   <li>AI, Consciousness, Gnosticism & Posthuman Ethics</li>
                   <li>Macroeconomics & World History</li>
@@ -330,9 +329,9 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                     software engineers at a Canadian fintech who are all on
                     paper far more qualified than me. I then ditched the
                     security of a high-salary to create my own startup at the
-                    intersection of DeSci and prediction markets. I'm finally
-                    happy where I landed; as a founder I can capitalize on my
-                    skills as a generalist with a technical edge.
+                    intersection of AI and prediction markets. I'm finally happy
+                    where I landed; as a founder I can capitalize on my skills
+                    as a generalist with a technical edge.
                   </li>
                   <li>
                     <strong>
