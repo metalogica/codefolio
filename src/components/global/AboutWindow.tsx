@@ -243,11 +243,14 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                 </h3>
                 <ul className="list-disc list-inside space-y-1 text-gray-300">
                   <li>
-                    Market microstructure, esp. AMMs, prediction markets &
-                    social choice theory in relation top public goods discourse.
+                    Market microstructure, AMMs, prediction markets, social
+                    choice theory, public goods, and collective action problems.
                   </li>
-                  <li>AI, Consciousness, Gnosticism & Posthuman Ethics</li>
-                  <li>Macroeconomics & World History</li>
+                  <li>
+                    AI, Consciousness, Gnosticism, Posthuman Ethics, and Science
+                    Fiction.
+                  </li>
+                  <li>Macroeconomics, World History, and World Literature.</li>
                 </ul>
               </section>
               <section>
@@ -255,6 +258,9 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                   My worldview
                 </h3>
                 <ul className="list-disc list-inside space-y-1 text-gray-300">
+                  <li>
+                    <strong>P(doom)</strong>: 20.
+                  </li>
                   <li>
                     <strong>Stag Hunt {">"} Prisoners Dilemma</strong>: I
                     believe trust is the true currency. Most outcomes in life
@@ -296,28 +302,12 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                 </h3>
                 <ul className="list-disc list-inside space-y-1 text-gray-300">
                   <li>
-                    <strong>I've been through a TBI</strong>: I had a bizarre
-                    reaction to a conventional drug during medical treatment
-                    that caused some pretty nasty psychological issues including
-                    chronic fatigue, derealisation and cognitive deficits. Noone
-                    knew how to diagnose my condition. It lasted at least 18
-                    months and during that period I was under heavy stress at
-                    work. Despite that, I managed to keep my job and even get
-                    promoted. I learned many things during this period,
-                    including the true meaning of resilience, and it deepened my
-                    capacity to believe in myself to solve my own problems. I
-                    had to maintain religious discipline on sleep habits,
-                    exercise and mindfulness practice. I also researched all
-                    kinds of elective therapy from supplements to neuro-feedback
-                    therapy.
-                  </li>
-                  <li>
                     <strong>I am an autodictat</strong>: I've jumped across
                     domains multiple times in my life. My B.A. was in
                     literature. I chose an 'easy' subject that would allow me to
-                    renage on course material and spend hours in the library.
-                    With this free time I read everything I wanted from history
-                    to economics to philosophy and still graduated with
+                    quickly skim over course material and spend hours in the
+                    library. With this free time I read everything I wanted from
+                    history to economics to philosophy and still graduated with
                     first-class honours despite being absent from most lectures.
                     I then jumped directly into an M.A. in Political Economy and
                     taught myself multi-variable calculus as part of it
@@ -341,14 +331,33 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                     business people. During retirement my father poured all his
                     life-saving into a high-risk startup. The business was
                     eventually a success and they managed to sell it many years
-                    later. I spent a couple of years working with them. This
-                    experience gave me my first insight into some very important
-                    business principles. I'll never forget how my father decided
-                    to commercialise technology the university R&D department
-                    advised as 'premature' for the market. But it was 'good
-                    enough' to meet some commercial demand. And with that
-                    monetisation they bootstrapped the rest of the technical
-                    development.
+                    later. I spent a couple of years working with them after
+                    graduating from university. This experience gave me my first
+                    insight into some very important business principles. I'll
+                    never forget how my father decided to commercialise
+                    technology the university R&D department advised as
+                    'premature' for the market. But it was 'good enough' to meet
+                    some commercial demand. And with that monetisation they
+                    bootstrapped the rest of the technical development.
+                  </li>
+                  <li>
+                    <strong>I've been through a traumatic brain injury</strong>:
+                    I had a bizarre reaction to a conventional drug during
+                    medical treatment that caused some pretty nasty
+                    psychological issues including chronic fatigue,
+                    derealisation and cognitive deficits. Noone knew how to
+                    diagnose my condition. It lasted at least 18 months and
+                    during that period I was under heavy stress at work. Despite
+                    that, I managed to keep my job and even get promoted. I
+                    learned many things during this period, including the true
+                    meaning of resilience, and it deepened my capacity to
+                    believe in myself to solve my own problems. I had to
+                    maintain religious discipline on sleep habits, exercise and
+                    mindfulness practice. I also researched all kinds of
+                    elective therapy from supplements to neuro-feedback therapy.
+                    It was also during this period that I first developed my
+                    initial interest in Brain Computer Interfaces and their
+                    intersection with transhumanist philosophy.
                   </li>
                 </ul>
               </section>
