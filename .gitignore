@@ -24,3 +24,6 @@ pnpm-debug.log*
 .idea/
 
 .vercel
+
+# Orchestration run-state (TTL-swept); execution-state.json stays tracked
+.substrate/runs/

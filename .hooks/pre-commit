@@ -1,0 +1,7 @@
+#!/bin/sh
+# Gate 1 (mechanical): doctrine manifest coverage · path · pointer.
+# Activate once per clone:  git config core.hooksPath .hooks
+# Bypass in an emergency:   git commit --no-verify   (CI still enforces it)
+bash docs/scripts/doctrine-lint.sh || exit 1
+# Preserved from the previous Husky pre-commit hook
+exec pnpm run lint
