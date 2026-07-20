@@ -10,6 +10,10 @@ export default defineConfig({
 
   trailingSlash: "never",
 
+  server: {
+    host: true,
+  },
+
   vite: {
     plugins: [tailwindcss()],
     server: {

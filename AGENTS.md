@@ -31,6 +31,9 @@ Every change is bound to the doctrines registered in `docs/doctrine/doctrine-man
 - `docs/doctrine/agents-parallel-execution-doctrine.md` — parallel-bead orchestration (single-writer
   tracker, integration branch + merge-on-green, file-disjoint waves, gate-before-close, two-stage
   gate, worktree hygiene). Read before running a bead DAG with subagents.
+- `docs/doctrine/desktop-doctrine.md` — the macOS-inspired desktop environment: window management
+  (draggable/resizable terminal), MacToolbar, Dock, desktop icons, and background rotation. Read
+  before touching the desktop UI.
 
 Add your own stack/domain doctrines with `/substrate:add-doctrine`; each self-registers in the manifest.
 

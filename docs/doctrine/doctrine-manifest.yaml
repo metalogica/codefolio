@@ -29,3 +29,10 @@ doctrines:
     summary: Parallel-bead orchestration — single-writer tracker, integration branch + merge-on-green, file-disjoint waves, gate-before-close, two-stage gate, worktree hygiene.
     triggers: [parallel, worktree, wave, epic, integration branch, merge-on-green]
     layer-hint: cross-cutting
+
+  - id: desktop
+    path: docs/doctrine/desktop-doctrine.md
+    pointers: [AGENTS.md]
+    summary: The macOS-inspired desktop environment — window management (draggable/resizable terminal), MacToolbar, Dock, desktop icons, and the background rotation system.
+    triggers: [desktop, terminal, window, dock, toolbar, icon, background, drag]
+    layer-hint: frontend

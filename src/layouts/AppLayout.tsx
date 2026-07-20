@@ -13,6 +13,7 @@ import { FaRegFileAlt, FaInfoCircle, FaShareAlt } from "react-icons/fa";
 interface AppLayoutProps {
   initialBg: string;
   backgroundMap: Record<string, string>;
+  backgroundVideo?: string;
 }
 
 interface DesktopIcon {
@@ -25,7 +26,11 @@ interface DesktopIcon {
 
 const CV_URI = "/rj-cv-2025-02-18.pdf" as const;
 
-export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
+export default function Desktop({
+  initialBg,
+  backgroundMap,
+  backgroundVideo,
+}: AppLayoutProps) {
   const [currentBg] = useState<string>(initialBg);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
@@ -88,10 +93,24 @@ export default function Desktop({ initialBg, backgroundMap }: AppLayoutProps) {
 
   return (
     <div className="relative w-screen h-screen overflow-hidden">
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${backgroundMap[currentBg]})` }}
-      />
+      {backgroundVideo ? (
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          src={backgroundVideo}
+          poster={backgroundMap[currentBg]}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+        />
+      ) : (
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${backgroundMap[currentBg]})` }}
+        />
+      )}
 
       <div className="relative z-10">
         <MacToolbar />
