@@ -504,3 +504,34 @@ No database in this feature. Runtime audits are DevTools procedures:
 | Version | Date | Changes |
 |---------|------|---------|
 | 1.0.0 | 2026-07-20 | Initial specification from ascii-ripple brief + desktop/agents architect analyses. Notable resolutions: (a) acceptance criterion "visibly different across the 3 backgrounds" reworded to prop-driven sampling — live code wires only `bg-3.avif` poster + `/bg-ascii.mp4` video wallpaper, brief/CLAUDE.md rotation description is stale; (b) defaults chosen per architect recommendation: `CELL_PX=12`, `DAMPING=0.985`, fillText over glyph atlas, terminal-matching monospace stack, uniform mobile grid, reset-don't-rescale on resize; (c) doctrine Status flips Draft → Active on merge (Active-on-merge default; template convention, not a cited rule); (d) test framework additions flagged opt-in, excluded from epic scope. |
+
+---
+
+### Post-execution notes
+
+Executed via `/substrate:execute` (attended, single-window) on 2026-07-20. Landed in `1f4647f`.
+All three phase gates green (`pnpm build` + `pnpm lint`; `doctrine-lint.sh` added in Phase 3).
+
+Deviations from the spec as written:
+
+1. **Preview command.** Step 2.2 names `pnpm preview`, but `@astrojs/vercel` does not support
+   `astro preview` — fell back to `pnpm dev` (the spec's stated alternative). No behavioral change.
+2. **Step 1.1 lint tension.** The spec front-loads all tuning constants into Step 1.1, but ESLint
+   `@typescript-eslint/no-unused-vars` flags them until Steps 1.2–1.3 consume them. Resolved by
+   building the single component file continuously across 1.1–1.3 and treating the Phase 1 **gate**
+   (not the intermediate step verify) as the binding lint check. No constant was renamed/`_`-prefixed.
+3. **Manual acceptance automated.** Step 2.2's 7-item checklist was driven via Playwright against the
+   dev server (canvas layer + DOM-order, click→ripple→decay→zero-idle-rAF, restart-on-input,
+   wallpaper-derived tint = 2408 non-gray px, resize reset, right-click ignored, touch tap, desktop-icon
+   click-through). Three items genuinely need DevTools/OS emulation the headless MCP browser can't do and
+   remain human-confirm: `prefers-reduced-motion` visual toggle, ~60fps at 4× CPU throttle, tactile
+   terminal drag/resize.
+4. **Color scaling.** "`sampled RGB × (0.6 + 0.8a)` (clamped)" was implemented as clamping the final
+   RGB **channels to 255** (factor ranges 0.6→1.4, allowing amplitude to brighten toward/over source),
+   matching "glyphs brighten with amplitude and dissolve at rest".
+5. **Quote style.** `.tsx` files carry no ESLint quote rule (single-quote/2-space enforced only on
+   `.astro`); the component uses double quotes to match the existing `.tsx` idiom (`MacTerminal.tsx`).
+
+Out-of-scope observation (filed as beads by `/substrate:synthesize-session`, not fixed here): a
+pre-existing MacToolbar clock SSR/client hydration mismatch surfaced during verification; and the stale
+"three rotating backgrounds" description in AGENTS.md/CLAUDE.md.
