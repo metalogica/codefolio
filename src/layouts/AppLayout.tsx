@@ -1,6 +1,7 @@
 import type { JSX } from "react";
 
 import { useEffect, useState } from "react";
+import AsciiRipple from "../components/global/AsciiRipple";
 import MacToolbar from "../components/global/MacToolbar";
 import MacTerminal from "../components/global/MacTerminal";
 import MobileDock from "../components/global/MobileDock";
@@ -111,6 +112,8 @@ export default function Desktop({
           style={{ backgroundImage: `url(${backgroundMap[currentBg]})` }}
         />
       )}
+
+      <AsciiRipple backgroundUrl={backgroundMap[currentBg]} />
 
       <div className="relative z-10">
         <MacToolbar />

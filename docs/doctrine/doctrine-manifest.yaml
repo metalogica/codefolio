@@ -33,6 +33,6 @@ doctrines:
   - id: desktop
     path: docs/doctrine/desktop-doctrine.md
     pointers: [AGENTS.md]
-    summary: The macOS-inspired desktop environment — window management (draggable/resizable terminal), MacToolbar, Dock, desktop icons, and the background rotation system.
-    triggers: [desktop, terminal, window, dock, toolbar, icon, background, drag]
+    summary: The macOS-inspired desktop environment — window management (draggable/resizable terminal), MacToolbar, Dock, desktop icons, the background rotation system, and the desktop effects layer.
+    triggers: [desktop, terminal, window, dock, toolbar, icon, background, drag, ripple, canvas, effect, animation]
     layer-hint: frontend
