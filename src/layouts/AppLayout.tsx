@@ -2,14 +2,12 @@ import type { JSX } from "react";
 
 import { useEffect, useState } from "react";
 import AsciiRipple from "../components/global/AsciiRipple";
-import MacToolbar from "../components/global/MacToolbar";
 import MacTerminal from "../components/global/MacTerminal";
-import MobileDock from "../components/global/MobileDock";
-import DesktopDock from "../components/global/DesktopDock";
 import AboutWindow from "../components/global/AboutWindow";
 import SocialsWindow from "../components/global/SocialsWindow";
 import SpotifyWindow from "../components/global/SpotifyWindow";
-import { FaRegFileAlt, FaInfoCircle, FaShareAlt } from "react-icons/fa";
+import Taskbar, { type WindowId } from "../components/global/Taskbar";
+import PixelIcon from "../components/global/icons/PixelIcon";
 
 interface AppLayoutProps {
   initialBg: string;
@@ -21,11 +19,19 @@ interface DesktopIcon {
   id: string;
   name: string;
   icon: JSX.Element;
-  type: "folder" | "file" | "app";
   onClick?: () => void;
 }
 
 const CV_URI = "/rj-cv-2025-02-18.pdf" as const;
+
+const CLOSED_WINDOWS: Record<WindowId, boolean> = {
+  terminal: false,
+  about: false,
+  socials: false,
+  spotify: false,
+  ideosphere: false,
+  dreamtable: false,
+};
 
 export default function Desktop({
   initialBg,
@@ -33,44 +39,52 @@ export default function Desktop({
   backgroundVideo,
 }: AppLayoutProps) {
   const [currentBg] = useState<string>(initialBg);
-  const [isAboutOpen, setIsAboutOpen] = useState(false);
-  const [isSocialsOpen, setIsSocialsOpen] = useState(false);
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
-  const [isSpotifyOpen, setIsSpotifyOpen] = useState(false);
+  const [openWindows, setOpenWindows] =
+    useState<Record<WindowId, boolean>>(CLOSED_WINDOWS);
+
+  const toggleWindow = (id: WindowId) => {
+    setOpenWindows((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const closeWindow = (id: WindowId) => {
+    setOpenWindows((prev) => ({ ...prev, [id]: false }));
+  };
 
   const desktopIcons: DesktopIcon[] = [
     {
       id: "about",
       name: "About Me",
-      icon: <FaInfoCircle className="text-blue-400" size={36} />,
-      type: "app",
-      onClick: () => setIsAboutOpen(true),
+      icon: <PixelIcon name="info" size={32} />,
+      onClick: () => toggleWindow("about"),
     },
     {
       id: "resume",
       name: "cv.pdf",
-      icon: <FaRegFileAlt className="text-gray-500" size={36} />,
-      type: "file",
+      icon: <PixelIcon name="document" size={32} />,
       onClick: () => window.open(CV_URI, "_blank"),
     },
     {
       id: "socials",
       name: "Socials",
-      icon: <FaShareAlt className="text-green-400" size={36} />,
-      type: "app",
-      onClick: () => setIsSocialsOpen(true),
+      icon: <PixelIcon name="share" size={32} />,
+      onClick: () => toggleWindow("socials"),
+    },
+    {
+      id: "spotify",
+      name: "Music",
+      icon: <PixelIcon name="music" size={32} />,
+      onClick: () => toggleWindow("spotify"),
     },
     {
       id: "ideosphere",
       name: "Ideosphere",
       icon: (
         <img
-          src="/ideosphere-logo.png"
-          alt="Ideosphere"
-          className="w-9 h-9 object-contain"
+          src="/icons/ideosphere-32.png"
+          alt=""
+          className="w-8 h-8 object-contain pixelated"
         />
       ),
-      type: "app",
       onClick: () => window.open("https://ideosphere.io", "_blank"),
     },
     {
@@ -78,12 +92,11 @@ export default function Desktop({
       name: "Dreamtable",
       icon: (
         <img
-          src="/dreamtable-logo.png"
-          alt="Dreamtable"
-          className="w-9 h-9 object-contain"
+          src="/icons/dreamtable-32.png"
+          alt=""
+          className="w-8 h-8 object-contain pixelated"
         />
       ),
-      type: "app",
       onClick: () => window.open("https://www.dreamtable.io", "_blank"),
     },
   ];
@@ -120,11 +133,7 @@ export default function Desktop({
         aria-hidden="true"
       />
 
-      <div className="relative z-10">
-        <MacToolbar />
-      </div>
-
-      <div className="relative z-0 px-6 pt-6 h-[calc(100vh-6rem)]">
+      <div className="relative z-0 px-6 pt-6 h-[calc(100vh-3rem)] md:h-[calc(100vh-2.5rem)]">
         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-6 md:gap-8">
           {desktopIcons.map((icon) => (
             <div
@@ -132,10 +141,13 @@ export default function Desktop({
               className="flex flex-col items-center group cursor-pointer"
               onClick={icon.onClick}
             >
-              <div className="p-3 rounded-lg transition-colors duration-200 group-hover:bg-white/10">
+              <div className="w-12 h-12 flex items-center justify-center bevel-out bg-pc98-face group-hover:bg-pc98-face-lt group-active:bevel-in">
                 {icon.icon}
               </div>
-              <div className="mt-2 px-2 py-1 rounded text-white text-center text-xs font-medium max-w-[90px] truncate bg-black/30 backdrop-blur-sm group-hover:bg-black/50">
+              <div
+                className="mt-2 px-1.5 py-0.5 text-white text-center font-bitmap text-[11px] max-w-[90px] truncate group-hover:bg-pc98-title"
+                style={{ textShadow: "1px 1px 0 #000" }}
+              >
                 {icon.name}
               </div>
             </div>
@@ -143,70 +155,64 @@ export default function Desktop({
         </div>
       </div>
 
-      {isTerminalOpen && (
+      {openWindows.terminal && (
         <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
           <div className="pointer-events-auto">
-            <MacTerminal onClose={() => setIsTerminalOpen(false)} />
+            <MacTerminal onClose={() => closeWindow("terminal")} />
           </div>
         </div>
       )}
 
-      {isAboutOpen && (
+      {openWindows.about && (
         <div className="absolute inset-0 z-25 pointer-events-auto">
           <div
             className="absolute inset-0"
-            onClick={() => setIsAboutOpen(false)}
+            onClick={() => closeWindow("about")}
             onTouchEnd={(e) => {
               e.preventDefault();
-              setIsAboutOpen(false);
+              closeWindow("about");
             }}
           />
           <div className="relative pointer-events-auto">
-            <AboutWindow onClose={() => setIsAboutOpen(false)} />
+            <AboutWindow onClose={() => closeWindow("about")} />
           </div>
         </div>
       )}
 
-      {isSocialsOpen && (
+      {openWindows.socials && (
         <div className="absolute inset-0 z-25 pointer-events-auto">
           <div
             className="absolute inset-0"
-            onClick={() => setIsSocialsOpen(false)}
+            onClick={() => closeWindow("socials")}
             onTouchEnd={(e) => {
               e.preventDefault();
-              setIsSocialsOpen(false);
+              closeWindow("socials");
             }}
           />
           <div className="relative pointer-events-auto">
-            <SocialsWindow onClose={() => setIsSocialsOpen(false)} />
+            <SocialsWindow onClose={() => closeWindow("socials")} />
           </div>
         </div>
       )}
 
-      {isSpotifyOpen && (
+      {openWindows.spotify && (
         <div className="absolute inset-0 z-25 pointer-events-auto">
           <div
             className="absolute inset-0"
-            onClick={() => setIsSpotifyOpen(false)}
+            onClick={() => closeWindow("spotify")}
             onTouchEnd={(e) => {
               e.preventDefault();
-              setIsSpotifyOpen(false);
+              closeWindow("spotify");
             }}
           />
           <div className="relative pointer-events-auto">
-            <SpotifyWindow onClose={() => setIsSpotifyOpen(false)} />
+            <SpotifyWindow onClose={() => closeWindow("spotify")} />
           </div>
         </div>
       )}
 
       <div className="relative z-30">
-        <MobileDock onTerminalClick={() => setIsTerminalOpen(!isTerminalOpen)} />
-        <DesktopDock
-          isTerminalOpen={isTerminalOpen}
-          onTerminalClick={() => setIsTerminalOpen(!isTerminalOpen)}
-          isSpotifyOpen={isSpotifyOpen}
-          onSpotifyClick={() => setIsSpotifyOpen(!isSpotifyOpen)}
-        />
+        <Taskbar openWindows={openWindows} onToggleWindow={toggleWindow} />
       </div>
     </div>
   );
