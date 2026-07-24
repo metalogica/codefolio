@@ -3,14 +3,16 @@ type: is
 id: is-01ky98gbdwrznx4zbdq30t4n2v
 title: "Phase 5: launcher windows"
 kind: task
-status: open
+status: closed
 priority: 2
-version: 1
+version: 3
 spec_path: docs/tasks/ongoing/pc98-redesign/pc98-redesign-plan.md
 labels:
   - epic:pc98-redesign
 dependencies: []
 parent_id: is-01ky98ft9t9j16698xvtw11wq2
 created_at: 2026-07-24T05:10:25.978Z
-updated_at: 2026-07-24T05:10:25.978Z
+updated_at: 2026-07-24T05:33:40.498Z
+closed_at: 2026-07-24T05:33:40.483Z
+close_reason: null
 ---
