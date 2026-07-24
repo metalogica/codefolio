@@ -8,6 +8,8 @@ import SocialsWindow from "../components/global/SocialsWindow";
 import SpotifyWindow from "../components/global/SpotifyWindow";
 import Taskbar, { type WindowId } from "../components/global/Taskbar";
 import PixelIcon from "../components/global/icons/PixelIcon";
+import BootSequence from "../components/global/BootSequence";
+import { MOBILE_BREAKPOINT } from "../components/global/useWindowControls";
 
 interface AppLayoutProps {
   initialBg: string;
@@ -104,6 +106,14 @@ export default function Desktop({
   useEffect(() => {
     localStorage.setItem("lastBackground", currentBg);
   }, [currentBg]);
+
+  // The terminal is the front door: open on every desktop-sized load. Mobile
+  // keeps the icon grid (and the CV path) unobstructed.
+  useEffect(() => {
+    if (window.innerWidth >= MOBILE_BREAKPOINT) {
+      setOpenWindows((prev) => ({ ...prev, terminal: true }));
+    }
+  }, []);
 
   return (
     <div className="relative w-screen h-screen overflow-hidden">
@@ -214,6 +224,8 @@ export default function Desktop({
       <div className="relative z-30">
         <Taskbar openWindows={openWindows} onToggleWindow={toggleWindow} />
       </div>
+
+      <BootSequence />
     </div>
   );
 }

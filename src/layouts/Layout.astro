@@ -15,9 +15,36 @@ import Analytics from '@vercel/analytics/astro';
       openGraph={Astro.props.openGraph}
     />
     <Analytics />
+    <script is:inline>
+      // Pre-hydration gate: show the black boot cover only when the boot
+      // sequence will actually run, so the desktop never flashes first.
+      try {
+        if (
+          !sessionStorage.getItem('pc98-boot-done') &&
+          !matchMedia('(prefers-reduced-motion: reduce)').matches
+        ) {
+          document.documentElement.dataset.boot = '1';
+        }
+      } catch {
+        /* sessionStorage unavailable: skip the cover */
+      }
+    </script>
+    <style is:global>
+      #boot-cover {
+        display: none;
+      }
+      html[data-boot='1'] #boot-cover {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: #000;
+        z-index: 40;
+      }
+    </style>
   </head>
 
   <body class='overflow-x-hidden bg-pc98-bg'>
+    <div id='boot-cover' aria-hidden='true'></div>
     <slot />
   </body>
 </html>
