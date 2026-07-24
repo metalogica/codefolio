@@ -30,8 +30,8 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
             <h3 className="text-lg font-bold mb-2">SYN/ACK</h3>
             I’m a cofounder and full-stack dev with 5+ years working in crypto &
             fintech with a heterogenous background that jumps across philosophy,
-            economics, and computer science. I'm now building at the
-            intersection of AI & prediction markets. Outside work I’m an
+            economics, and computer science. I’m now working on an AI-native
+            studio. Outside work I’m an
             endurance runner and autodidact who gets way too excited about nerdy
             subjects (ACX, Less Wrong etc).
           </section>
