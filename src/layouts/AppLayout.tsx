@@ -9,6 +9,9 @@ import SpotifyWindow from "../components/global/SpotifyWindow";
 import Taskbar, { type WindowId } from "../components/global/Taskbar";
 import PixelIcon from "../components/global/icons/PixelIcon";
 import BootSequence from "../components/global/BootSequence";
+import AppLauncherWindow, {
+  type LauncherApp,
+} from "../components/global/AppLauncherWindow";
 import { MOBILE_BREAKPOINT } from "../components/global/useWindowControls";
 
 interface AppLayoutProps {
@@ -25,13 +28,28 @@ interface DesktopIcon {
 }
 
 const CV_URI = "/rj-cv-2025-02-18.pdf" as const;
-const SOULBOUND_URL = "https://soulboundlabs.com" as const;
+
+const LAUNCHER_APPS: Array<
+  LauncherApp & { windowId: WindowId; desktopPosition: { x: number; y: number } }
+> = [
+  {
+    id: "soulbound",
+    windowId: "soulbound",
+    name: "Soulbound Labs",
+    exeName: "SOULBOUND.EXE",
+    screenshotUrl: "/soulbound-labs.png",
+    blurb: "An AI-native studio. Two operators, AI-native by default.",
+    url: "https://soulboundlabs.com",
+    desktopPosition: { x: 340, y: 180 },
+  },
+];
 
 const CLOSED_WINDOWS: Record<WindowId, boolean> = {
   terminal: false,
   about: false,
   socials: false,
   spotify: false,
+  soulbound: false,
 };
 
 export default function Desktop({
@@ -70,17 +88,19 @@ export default function Desktop({
       icon: <PixelIcon name="share" size={32} />,
       onClick: () => toggleWindow("socials"),
     },
-    {
-      id: "spotify",
-      name: "Music",
-      icon: <PixelIcon name="music" size={32} />,
-      onClick: () => toggleWindow("spotify"),
-    },
+    // TODO: Music tab hidden until the Spotify account is updated. Keep the
+    // SpotifyWindow wiring intact — just restore this icon to bring it back.
+    // {
+    //   id: "spotify",
+    //   name: "Music",
+    //   icon: <PixelIcon name="music" size={32} />,
+    //   onClick: () => toggleWindow("spotify"),
+    // },
     {
       id: "soulbound",
       name: "Soulbound Labs",
       icon: <PixelIcon name="globe" size={32} />,
-      onClick: () => window.open(SOULBOUND_URL, "_blank"),
+      onClick: () => toggleWindow("soulbound"),
     },
   ];
 
@@ -200,6 +220,29 @@ export default function Desktop({
             <SpotifyWindow onClose={() => closeWindow("spotify")} />
           </div>
         </div>
+      )}
+
+      {LAUNCHER_APPS.map(
+        (app) =>
+          openWindows[app.windowId] && (
+            <div key={app.id} className="absolute inset-0 z-25 pointer-events-auto">
+              <div
+                className="absolute inset-0"
+                onClick={() => closeWindow(app.windowId)}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  closeWindow(app.windowId);
+                }}
+              />
+              <div className="relative pointer-events-auto">
+                <AppLauncherWindow
+                  app={app}
+                  desktopPosition={app.desktopPosition}
+                  onClose={() => closeWindow(app.windowId)}
+                />
+              </div>
+            </div>
+          ),
       )}
 
       <div className="relative z-30">

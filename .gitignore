@@ -27,3 +27,6 @@ pnpm-debug.log*
 
 # Orchestration run-state (TTL-swept); execution-state.json stays tracked
 .substrate/runs/
+
+# Playwright MCP session artifacts
+.playwright-mcp/

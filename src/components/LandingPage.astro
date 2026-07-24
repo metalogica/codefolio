@@ -2,8 +2,11 @@
 export const prerender = false;
 import AppLayout from '../layouts/AppLayout';
 
+// Poster/fallback for the ascii video — a frame from the video itself, so the
+// image that flashes before the 3.4MB video buffers matches the new background
+// instead of the old blood-moon photo (bg-3.avif).
 const backgroundMap = {
-  'bg-3': '/bg-3.avif'
+  'bg-3': '/bg-ascii-poster.jpg'
 };
 ---
 
