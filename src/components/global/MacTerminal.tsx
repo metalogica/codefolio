@@ -98,7 +98,7 @@ export default function MacTerminal({ onClose }: MacTerminalProps) {
   const welcomeMessage = `Welcome to My Portfolio
 
 Name: Rei Jarram
-Role: Full Stack Developer
+Role: Founder, Metalogica
 Location: Montreal, QC
 
 Contact: rjarram@me.com

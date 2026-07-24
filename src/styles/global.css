@@ -1,15 +1,87 @@
 @import 'tailwindcss';
 
+/*
+ * Fonts:
+ * - DotGothic16 (latin subset) — © Fontworks Inc., SIL Open Font License 1.1.
+ * - "Web437 IBM VGA 8x16" — from The Ultimate Oldschool PC Font Pack v2.2
+ *   by VileR (https://int10h.org/oldschool-pc-fonts/), CC BY-SA 4.0.
+ */
+@font-face {
+  font-family: 'DotGothic16';
+  src: url('/fonts/dotgothic16-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Web437 IBM VGA';
+  src: url('/fonts/web437-ibm-vga-8x16.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-pc98-bg: #0a0a14;
+  --color-pc98-face: #c8c8c8;
+  --color-pc98-face-lt: #dfdfdf;
+  --color-pc98-shadow: #808080;
+  --color-pc98-title: #000082;
+  --color-pc98-title-inactive: #6e6e6e;
+  --color-pc98-green: #00d000;
+  --color-pc98-cyan: #00a8a8;
+  --color-pc98-magenta: #a800a8;
+  --color-pc98-red: #a80000;
+  --font-bitmap: 'DotGothic16', 'MS Gothic', 'Osaka-Mono', sans-serif;
+  --font-terminal: 'Web437 IBM VGA', 'Menlo', 'Monaco', monospace;
+}
+
 @layer base {
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-      'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-      'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-bitmap);
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: unset;
   }
 
   .font-mono {
-    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    font-family: var(--font-terminal);
   }
+}
+
+@utility bevel-out {
+  box-shadow:
+    inset -1px -1px 0 #000,
+    inset 1px 1px 0 var(--color-pc98-face-lt),
+    inset -2px -2px 0 var(--color-pc98-shadow),
+    inset 2px 2px 0 #fff;
+}
+
+@utility bevel-in {
+  box-shadow:
+    inset -1px -1px 0 var(--color-pc98-face-lt),
+    inset 1px 1px 0 #000,
+    inset -2px -2px 0 #fff,
+    inset 2px 2px 0 var(--color-pc98-shadow);
+}
+
+@utility pixelated {
+  image-rendering: pixelated;
+}
+
+/* 2x2 Bayer-style checker at low alpha, for large chrome-face surfaces. */
+@utility dither-25 {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2' height='2'%3E%3Crect x='0' y='0' width='1' height='1' fill='%23000' fill-opacity='0.08'/%3E%3Crect x='1' y='1' width='1' height='1' fill='%23000' fill-opacity='0.08'/%3E%3C/svg%3E");
+  background-size: 2px 2px;
+}
+
+/* Static CRT scanlines — pure paint, no animation, zero idle cost. */
+@utility scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1) 0,
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px,
+    transparent 3px
+  );
 }

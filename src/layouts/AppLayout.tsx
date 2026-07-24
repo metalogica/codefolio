@@ -115,6 +115,11 @@ export default function Desktop({
 
       <AsciiRipple backgroundUrl={backgroundMap[currentBg]} />
 
+      <div
+        className="absolute inset-0 pointer-events-none scanlines"
+        aria-hidden="true"
+      />
+
       <div className="relative z-10">
         <MacToolbar />
       </div>
