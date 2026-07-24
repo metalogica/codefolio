@@ -9,6 +9,9 @@ import SpotifyWindow from "../components/global/SpotifyWindow";
 import Taskbar, { type WindowId } from "../components/global/Taskbar";
 import PixelIcon from "../components/global/icons/PixelIcon";
 import BootSequence from "../components/global/BootSequence";
+import AppLauncherWindow, {
+  type LauncherApp,
+} from "../components/global/AppLauncherWindow";
 import { MOBILE_BREAKPOINT } from "../components/global/useWindowControls";
 
 interface AppLayoutProps {
@@ -25,6 +28,33 @@ interface DesktopIcon {
 }
 
 const CV_URI = "/rj-cv-2025-02-18.pdf" as const;
+
+const LAUNCHER_APPS: Array<
+  LauncherApp & { windowId: WindowId; desktopPosition: { x: number; y: number } }
+> = [
+  {
+    id: "ideosphere",
+    windowId: "ideosphere",
+    name: "Ideosphere",
+    exeName: "IDEOSPHERE.EXE",
+    screenshotUrl: "/screenshots/ideosphere.png",
+    blurb:
+      "A Metalogica product at the intersection of AI and prediction markets.",
+    url: "https://ideosphere.io",
+    desktopPosition: { x: 320, y: 160 },
+  },
+  {
+    id: "dreamtable",
+    windowId: "dreamtable",
+    name: "Dreamtable",
+    exeName: "DREAMTABLE.EXE",
+    screenshotUrl: "/screenshots/dreamtable.png",
+    blurb:
+      "Effortless data viz — connect your spreadsheets to create instant, generative insights.",
+    url: "https://www.dreamtable.io",
+    desktopPosition: { x: 380, y: 200 },
+  },
+];
 
 const CLOSED_WINDOWS: Record<WindowId, boolean> = {
   terminal: false,
@@ -87,7 +117,7 @@ export default function Desktop({
           className="w-8 h-8 object-contain pixelated"
         />
       ),
-      onClick: () => window.open("https://ideosphere.io", "_blank"),
+      onClick: () => toggleWindow("ideosphere"),
     },
     {
       id: "dreamtable",
@@ -99,7 +129,7 @@ export default function Desktop({
           className="w-8 h-8 object-contain pixelated"
         />
       ),
-      onClick: () => window.open("https://www.dreamtable.io", "_blank"),
+      onClick: () => toggleWindow("dreamtable"),
     },
   ];
 
@@ -219,6 +249,29 @@ export default function Desktop({
             <SpotifyWindow onClose={() => closeWindow("spotify")} />
           </div>
         </div>
+      )}
+
+      {LAUNCHER_APPS.map(
+        (app) =>
+          openWindows[app.windowId] && (
+            <div key={app.id} className="absolute inset-0 z-25 pointer-events-auto">
+              <div
+                className="absolute inset-0"
+                onClick={() => closeWindow(app.windowId)}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  closeWindow(app.windowId);
+                }}
+              />
+              <div className="relative pointer-events-auto">
+                <AppLauncherWindow
+                  app={app}
+                  desktopPosition={app.desktopPosition}
+                  onClose={() => closeWindow(app.windowId)}
+                />
+              </div>
+            </div>
+          ),
       )}
 
       <div className="relative z-30">
