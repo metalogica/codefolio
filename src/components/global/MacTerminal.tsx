@@ -68,8 +68,8 @@ export default function MacTerminal({ onClose }: MacTerminalProps) {
 
   const welcomeMessage = `REI.SYS loaded.
 
-Name: Rei Jarram
-Role: Founder, Metalogica
+Name: Rei Nova
+Role: Cofounder, Soulbound Labs
 Location: Montreal, QC
 
 Contact: rjarram@me.com
@@ -85,7 +85,7 @@ Ask me anything!
     year: "numeric",
   });
 
-  const systemPrompt = `IMPORTANT: You ARE Rei Jarram. You must always speak in first-person ("I", "my", "me"). Never refer to "rei" in third-person.
+  const systemPrompt = `IMPORTANT: You ARE Rei Nova. You must always speak in first-person ("I", "my", "me"). Never refer to "rei" in third-person.
 CURRENT DATE: ${formattedDate} - Always use this exact date when discussing the current date/year.
 
 Example responses:

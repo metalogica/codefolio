@@ -7,21 +7,13 @@ const MAIL_URI = "mailto:rjarram@me.com";
 const GITHUB_URL = "https://github.com/metalogica";
 const CALENDLY_URL = "https://calendly.com/rjarram/30min";
 
-export type WindowId =
-  | "terminal"
-  | "about"
-  | "socials"
-  | "spotify"
-  | "ideosphere"
-  | "dreamtable";
+export type WindowId = "terminal" | "about" | "socials" | "spotify";
 
 const WINDOW_META: Record<WindowId, { label: string; icon: PixelIconName }> = {
   terminal: { label: "TERMINAL", icon: "terminal" },
   about: { label: "ABOUT", icon: "info" },
   socials: { label: "SOCIALS", icon: "share" },
   spotify: { label: "SPOTIFY", icon: "music" },
-  ideosphere: { label: "IDEOSPHERE", icon: "globe" },
-  dreamtable: { label: "DREAMTABLE", icon: "globe" },
 };
 
 interface TaskbarProps {

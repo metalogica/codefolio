@@ -20,7 +20,7 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
         <div className="flex flex-col items-center mb-6">
           <img
             src={profilePic1.src}
-            alt="Rei Jarram"
+            alt="Rei Nova"
             className="w-100 h-140 object-cover mb-4 pixelated border border-black"
           />
         </div>
@@ -28,7 +28,7 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
         <div className="space-y-4">
           <section>
             <h3 className="text-lg font-bold mb-2">SYN/ACK</h3>
-            I’m a founder and full-stack dev with 5+ years working in crypto &
+            I’m a cofounder and full-stack dev with 5+ years working in crypto &
             fintech with a heterogenous background that jumps across philosophy,
             economics, and computer science. I'm now building at the
             intersection of AI & prediction markets. Outside work I’m an
@@ -121,7 +121,7 @@ export default function AboutWindow({ onClose }: AboutWindowProps) {
                 paper far more qualified than me. I then ditched the security of
                 a high-salary to create my own startup at the intersection of AI
                 and prediction markets. I'm finally happy where I landed; as a
-                founder I can capitalize on my skills as a generalist with a
+                cofounder I can capitalize on my skills as a generalist with a
                 technical edge.
               </li>
               <li>
