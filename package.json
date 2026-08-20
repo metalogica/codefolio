@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "lint": "eslint .",
+    "build:cv": "node scripts/build-cv.mjs",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
