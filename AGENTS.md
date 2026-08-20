@@ -4,7 +4,7 @@
 > and cross-tool agents read one source. Read this first, then open the doctrine for the
 > area you're working in.
 
-Portfolio website for Rei Jarram — a macOS-inspired desktop interface built with Astro 5.3.1, React 19, and Tailwind CSS 4, featuring a draggable terminal window with an OpenAI-powered chatbot. SSR on Vercel at https://rei.gg.
+Portfolio website for Rei Jarram — a macOS-inspired desktop interface built with Astro 5.3.1, React 19, and Tailwind CSS 4, featuring a draggable terminal window with an OpenRouter-powered chatbot. SSR on Vercel at https://rei.gg.
 
 ## Verification gates — declared, never assumed
 
@@ -60,7 +60,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a portfolio website for Rei Jarram built with Astro 5.3.1, React 19, and Tailwind CSS 4. The site features a macOS-inspired desktop interface with a draggable/resizable terminal window that includes an OpenAI-powered chatbot. The project is deployed on Vercel with SSR enabled.
+This is a portfolio website for Rei Jarram built with Astro 5.3.1, React 19, and Tailwind CSS 4. The site features a macOS-inspired desktop interface with a draggable/resizable terminal window that includes an OpenRouter-powered chatbot. The project is deployed on Vercel with SSR enabled.
 
 ## Development Commands
 
@@ -103,15 +103,16 @@ This project uses **pnpm**. Always use pnpm instead of npm or yarn.
 
 **MacTerminal.tsx** (src/components/global/MacTerminal.tsx)
 - Draggable/resizable terminal window (desktop only, hidden on mobile)
-- OpenAI GPT-3.5 chatbot integration via `/api/chat` endpoint
+- OpenRouter chatbot integration via `/api/chat` endpoint
 - System prompt defines personality: "You ARE Rei Jarram" (first-person responses)
 - Placeholder animation cycling
 - Mobile detection hides component on mobile devices
 
 **API Routes** (src/pages/api/)
-- `chat.ts` - OpenAI chat completions endpoint (POST)
-- Requires `OPENAI_API_KEY` environment variable
-- Uses gpt-3.5-turbo model with 500 token limit
+- `chat.ts` - OpenRouter chat completions endpoint (POST), via the OpenAI SDK pointed at
+  `https://openrouter.ai/api/v1` (OpenRouter is OpenAI wire-compatible)
+- Requires `OPENROUTER_API_KEY` environment variable
+- Uses the `xiaomi/mimo-v2.5-pro` model with 500 token limit
 
 **Background System**
 - Three optimized backgrounds in `src/assets/images/`
@@ -119,7 +120,7 @@ This project uses **pnpm**. Always use pnpm instead of npm or yarn.
 - Astro's `getImage()` optimizes backgrounds at build time
 
 ### Environment Variables
-- `OPENAI_API_KEY` - Required for chatbot functionality (see `.env.example`)
+- `OPENROUTER_API_KEY` - Required for chatbot functionality (see `.env.example`)
 
 ### Code Style
 

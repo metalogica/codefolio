@@ -1,8 +1,17 @@
 import type { APIRoute } from "astro";
 import OpenAI from "openai";
 
+const MODEL = "xiaomi/mimo-v2.5-pro";
+
+// OpenRouter speaks the OpenAI wire format, so the OpenAI SDK is the client —
+// only the base URL, key, and model slug differ.
 const openai = new OpenAI({
-  apiKey: import.meta.env.OPENAI_API_KEY,
+  baseURL: "https://openrouter.ai/api/v1",
+  apiKey: import.meta.env.OPENROUTER_API_KEY,
+  defaultHeaders: {
+    "HTTP-Referer": "https://rei.gg",
+    "X-Title": "rei.gg",
+  },
 });
 
 export const POST: APIRoute = async ({ request }) => {
@@ -10,7 +19,7 @@ export const POST: APIRoute = async ({ request }) => {
     const body = await request.json();
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: MODEL,
       messages: body.messages,
       temperature: 0.7,
       max_tokens: 500,
