@@ -6,7 +6,7 @@ import MacTerminal from "../components/global/MacTerminal";
 import AboutWindow from "../components/global/AboutWindow";
 import SocialsWindow from "../components/global/SocialsWindow";
 import SpotifyWindow from "../components/global/SpotifyWindow";
-import Taskbar, { type WindowId } from "../components/global/Taskbar";
+import Taskbar, { CV_URI, type WindowId } from "../components/global/Taskbar";
 import PixelIcon from "../components/global/icons/PixelIcon";
 import BootSequence from "../components/global/BootSequence";
 import AppLauncherWindow, {
@@ -27,7 +27,6 @@ interface DesktopIcon {
   onClick?: () => void;
 }
 
-const CV_URI = "/rj-cv-2025-02-18.pdf" as const;
 
 const LAUNCHER_APPS: Array<
   LauncherApp & { windowId: WindowId; desktopPosition: { x: number; y: number } }
@@ -38,7 +37,7 @@ const LAUNCHER_APPS: Array<
     name: "Soulbound Labs",
     exeName: "SOULBOUND.EXE",
     screenshotUrl: "/soulbound-labs.png",
-    blurb: "An AI-native studio. Two operators, AI-native by default.",
+    blurb: "An AI Native Studio",
     url: "https://soulboundlabs.com",
     desktopPosition: { x: 340, y: 180 },
   },

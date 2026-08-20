@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import PixelIcon, { type PixelIconName } from "./icons/PixelIcon";
 
 const CLOCK_TICK_MS = 60 * 1000;
-const CV_URI = "/rj-cv-2025-02-18.pdf";
-const MAIL_URI = "mailto:rjarram@me.com";
+export const CV_URI = "/rei-nova-cv.pdf";
+export const CONTACT_EMAIL = "rei@soulboundlabs.com";
+const MAIL_URI = `mailto:${CONTACT_EMAIL}`;
 const GITHUB_URL = "https://github.com/metalogica";
-const CALENDLY_URL = "https://calendly.com/rjarram/30min";
+const CALENDLY_URL = "https://calendly.com/rei-soulboundlabs/30min";
 
 export type WindowId =
   | "terminal"
