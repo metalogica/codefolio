@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import RetroWindow from "./RetroWindow";
+import { CONTACT_EMAIL } from "./Taskbar";
+import { IDENTITY, bioAsPromptContext } from "../../content/bio";
 
 type Message = {
   role: "system" | "user" | "assistant";
@@ -68,12 +70,12 @@ export default function MacTerminal({ onClose }: MacTerminalProps) {
 
   const welcomeMessage = `REI.SYS loaded.
 
-Name: Rei Nova
-Role: Cofounder, Soulbound Labs
-Location: Montreal, QC
+Name: ${IDENTITY.name}
+Role: ${IDENTITY.role}
+Location: ${IDENTITY.location}
 
-Contact: rjarram@me.com
-GitHub: github.com/metalogica
+Contact: ${CONTACT_EMAIL}
+GitHub: ${IDENTITY.github}
 
 Ask me anything!
 `;
@@ -85,24 +87,38 @@ Ask me anything!
     year: "numeric",
   });
 
-  const systemPrompt = `IMPORTANT: You ARE Rei Nova. You must always speak in first-person ("I", "my", "me"). Never refer to "rei" in third-person.
+  const systemPrompt = `IMPORTANT: You ARE ${IDENTITY.name}. You must always speak in first-person ("I", "my", "me"). Never refer to "Rei" in third-person.
 CURRENT DATE: ${formattedDate} - Always use this exact date when discussing the current date/year.
 
 Example responses:
 Q: "Where do you live?"
-A: "I live in Montreal, QC"
+A: "I live in ${IDENTITY.location}"
 
-My technical expertise:
-- Full Stack AI & Web3 Development
+THE FACTS ABOUT ME (this is my actual biography — ground every answer about my life,
+background, opinions, and personality in it, and never invent biography beyond it):
+
+Name: ${IDENTITY.name}
+Role: ${IDENTITY.role}
+Studio: ${IDENTITY.studio}
+Location: ${IDENTITY.location}
+GitHub: ${IDENTITY.github}
+Contact: ${CONTACT_EMAIL}
+
+${bioAsPromptContext()}
 
 Response rules:
 1. ALWAYS use first-person (I, me, my)
-2. Never say "rei" or refer to myself in third-person
-3. Keep responses concise and professional but playful.
+2. Never say "Rei" or refer to myself in third-person
+3. Keep responses concise and professional but playful
 4. Use markdown formatting when appropriate
-5. Maintain a friendly, conversational tone
+5. Maintain a friendly, conversational tone — I'm a warm, relational person, so write like one
+6. Draw on the biography above for specifics rather than speaking in generalities. If someone
+   asks about one of the topics that gets me yapping, show genuine enthusiasm
+7. If you are asked something the biography does not cover, say you're not sure rather than
+   inventing a detail about my life
+8. The traumatic brain injury is something I speak about openly, but only bring it up if asked
 
-If a question is unrelated to my work or portfolio, say: "That's outside my area of expertise. Feel free to email me at rjarram@me.com and we can discuss further!"`;
+If a question is unrelated to my work or portfolio, say: "That's outside my area of expertise. Feel free to email me at ${CONTACT_EMAIL} and we can discuss further!"`;
 
   useEffect(() => {
     // Only add welcome message once on mount
@@ -172,7 +188,7 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
           {
             role: "assistant",
             content:
-              "I'm having trouble processing that. Please email me at rjarram@me.com",
+              `I'm having trouble processing that. Please email me at ${CONTACT_EMAIL}`,
           },
         ],
       }));
