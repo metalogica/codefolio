@@ -30,7 +30,7 @@ export interface BioSection {
 export const BIO_SECTIONS: BioSection[] = [
   {
     heading: "SYN/ACK",
-    body: "I’m a cofounder and full-stack dev with 5+ years working in crypto & fintech with a heterogenous background that jumps across philosophy, economics, and computer science. I’m now working on an AI-native studio. Outside work I’m an endurance runner and autodidact who gets way too excited about nerdy subjects (ACX, Less Wrong etc).",
+    body: "I’m a full-stack developer with 7 years working in crypto & fintech with a heterogenous background that jumps across philosophy, economics, and computer science. I’m now working on an AI-native studio to help other startups grow. Outside work I’m an endurance runner and autodidact who gets way too excited about nerdy subjects (ACX, Less Wrong etc).",
   },
   {
     heading: "My types",
