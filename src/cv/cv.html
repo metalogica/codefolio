@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume Template</title>
+    <title>Rei Nova — CV</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div class="header">
       <h1>Rei Nova</h1>
-      <h2>Founder, Full Stack Developer & Tech Lead</h2>
+      <h2>Founder & Engineer Specializing In AI Systems & Payments
+        Infrastructure</h2>
 
       <!-- Contact Section -->
       <div class="footer-section">
@@ -52,35 +53,34 @@
       <!-- Profile -->
       <div class="section-title">Profile</div>
       <p>I build teams and scale codebases. In my previous tenure at Shakepay I
-        regularly shipped code
-        reaching 80,000+ daily active users
-        touching multiple product lines across the entire tech stack
-        (backend, infra, mobile,
-        web-app &
-        internal systems) on a financial system that
-        processes over $1 billion in volume per year. My work has
-        resulted in thousands of hours labour-time saved, tens of thousands of
-        dollars saved through bug fixes, and hundreds of millions of dollars of
-        new volume processed through the rollout of entirely new product
-        lines.</p>
+        shipped code reaching 80,000+ daily active users across the entire tech
+        stack (backend, infra, mobile, web-app & internal systems) on a
+        financial system processing over $1 billion in volume per year. I'm
+        currently running Soulbound Labs, where I build AI agent
+        infrastructure and put that same stack to work for startups and
+        SMBs.</p>
 
       <div class="section-title">Work Experience</div>
-      <!-- Ideosphere -->
+      <!-- Soulbound Labs -->
       <div class="experience-item">
         <div class="experience-section">
           <div class="experience-title">Cofounder & Head Of Technology @
-            Ideosphere</div>
-          <div class="experience-date">2025 October - Present</div>
+            Soulbound Labs</div>
+          <div class="experience-date">2025 November - Present</div>
         </div>
         <ul>
-          <li>Individually designed and implemented a virtual-money full-stack
-            prediction market platform focussed on AI frontiers:
-            https://ideosphere.io
-          </li>
-          <li>Developed a novel forecasting-AMM hybrid mechanism from personal
-            reading of market microstructure literature that combines
-            traditional forecasting methods with trading dynamics to
-            improve speed, accuracy and bias reduction in predictions.</li>
+          <li>Shipped <strong>Clawcraft</strong>, a multi-tenant AI agent
+            runtime: Rust execution with per-tenant compute isolation on
+            Kubernetes, model routing across multiple inference providers
+            (OpenRouter, LiteLLM, AWS), MCP tool integrations, a multi-channel
+            relay, and metered billing.</li>
+          <li>Built and open-sourced <a class="link-decorated" target="_blank"
+              href="https://github.com/metalogica/substrate"><strong>Substrate</strong></a>,
+            an execution
+            harness for agent fleets. It decomposes a brief into a
+            machine-readable spec and a dependency graph of units, runs agents
+            in parallel isolated worktrees, and gates every merge on
+            machine-checked criteria.</li>
         </ul>
       </div>
 
@@ -88,7 +88,7 @@
       <div class="experience-item">
         <div class="experience-section">
           <div class="experience-title">Cash Squad Tech Lead @ Shakepay</div>
-          <div class="experience-date">2025 January - October 2025</div>
+          <div class="experience-date">2025 January - 2025 October</div>
         </div>
         <div>Achievements</div>
         <ul>
@@ -110,18 +110,15 @@
         </ul>
         <div class="experience-subheader">Day-to-day</div>
         <ul>
-          <li>Collaborate with engineering and product managers to set firm
-            milestones for sprints and split up work across teams to maximize
-            productivity. Lead by example and daily ship code to over 80,000
-            daily active users across multiple product lines and business
-            domains including cash, risk and internal systems.</li>
-          <li>Lead technical initiatives to improve developer experience by
-            writing RFCs to introduce clearer design patterns and domain models,
-            leading decomposition projects, and adovcating for better test
-            coverage on the backend and mobile-app.</li>
-          <li>Lead technical interviews (over 50 to-date) and on-board new devs
-            (10 to-date) and also provide technical mentorship for new devs
-            through 1:1s and code reviews.</li>
+          <li>Set sprint milestones with engineering and product managers, split
+            work across teams, and shipped daily to 80,000+ daily active users
+            across cash, risk and internal systems. Drove developer-experience
+            initiatives — RFCs introducing clearer design patterns and domain
+            models, decomposition projects, and better backend and mobile test
+            coverage.</li>
+          <li>Led technical interviews (over 50) and onboarded new devs (10),
+            and provided technical mentorship through 1:1s and code
+            reviews.</li>
         </ul>
       </div>
 
@@ -145,7 +142,7 @@
             million of customer salaries are processed by direct deposits each
             year; the system has received no downtime to-date.</li>
           <li>Led the migration of internal tooling from a Vue.js app to the low
-            code platform Retool to maximize up developer productivity.</li>
+            code platform Retool to maximize developer productivity.</li>
         </ul>
       </div>
 
@@ -155,7 +152,7 @@
           <div class="experience-date">2021 September - 2023 June</div>
         </div>
         <ul>
-          <li>Architected and implemented the Wire cash-outs sytem which
+          <li>Architected and implemented the Wire cash-outs system which
             processes over $95 million of funds per year.</li>
           <li>Fixed a broken data model by backfilling
             over 440,000 records and then automated payout processes (~2,309
@@ -204,33 +201,60 @@
       <div class="section-title">Hackathons</div>
       <div class="experience-item">
         <div class="hackathon-section">
-          <div class="experience-title"> 🏆 1st Place Radix Global
-            Hackathon</div>
-          <div class="experience-date">
-            2024 March
-          </div>
+          <div class="experience-title">🏆 Winner — Return Of The Agents, San
+            Francisco</div>
+          <div class="experience-date">2026</div>
         </div>
         <ul>
-          <li><a target="_blank" class="link-decorated"
-              href="https://github.com/metalogica/geochain">Geochain</a> is a
-            dApp that utilizes NFTs to manage payments based on GPS stream
-            data
-            from Apple air tags.</li>
+          <li>Shipped <a target="_blank" class="link-decorated"
+              href="https://github.com/metalogica/substrate">Substrate</a>, an
+            execution harness for agent fleets, and used it to build and deploy
+            an entire web-app — <a target="_blank" class="link-decorated"
+              href="https://www.roastybara.co/">Roastybara</a> — in under 30
+            minutes, start to finish.</li>
+        </ul>
+      </div>
+
+      <div class="experience-item">
+        <div class="hackathon-section">
+          <div class="experience-title">🏆 $10,000 Winner — AuraSci, Boston
+            MA</div>
+          <div class="experience-date">2025</div>
+        </div>
+        <ul>
+          <li>Shipped <a target="_blank" class="link-decorated"
+              href="https://x.com/Aura_Sci/status/1979203489520550246">Ideosphere</a>,
+            a decentralized prediction market for science. <a target="_blank"
+              class="link-decorated"
+              href="https://www.tradingview.com/news/cointelegraph:c0b7b7329094b:0-gambling-for-science-ideosphere-wants-to-fund-research-with-prediction-markets/">Covered
+              by Cointelegraph</a>.</li>
+        </ul>
+      </div>
+
+      <div class="experience-item">
+        <div class="hackathon-section">
+          <div class="experience-title">🏆 1st Place — Radix Hackathon, London
+            UK</div>
+          <div class="experience-date">2024</div>
+        </div>
+        <ul>
+          <li>Shipped <a target="_blank" class="link-decorated"
+              href="https://github.com/metalogica/geochain">Geochain</a>, a dApp
+            on the Radix blockchain that lets shipping companies gate escrow
+            payments on the GPS location of shipments.</li>
         </ul>
       </div>
 
       <div class="experience-item">
         <div class="hackathon-section">
           <div class="experience-title">🏆 Best UX, Best Public Good & Best
-            Built On UMA at ETH Global Hackathon</div>
-          <div class="experience-date">2023 September</div>
+            Built On UMA — ETH Global, New York City</div>
+          <div class="experience-date">2023</div>
         </div>
         <ul>
-          <li><a class="link-decorated" target="_blank"
-              href="https://github.com/metalogica">Swirl</a> is a
-            dApp
-            that utitlizes ERC-6551 in novel way to facilitate P2P funding
-            mechanisms for decentralized science.</li>
+          <li>Shipped <a target="_blank" class="link-decorated"
+              href="https://github.com/swirl-xyz/swirl">Swirl</a>, a
+            decentralized P2P funding platform for scientific research.</li>
         </ul>
       </div>
     </main>
