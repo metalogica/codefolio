@@ -30,7 +30,10 @@ export default defineConfig({
     }),
   ],
 
-  adapter: vercel(),
+  // includeFiles copies the CV into the serverless bundle so the /cv route
+  // (src/pages/cv.ts) can read it at runtime. Without this the route 404s in
+  // production even though it works in dev.
+  adapter: vercel({ includeFiles: ["./public/cv.pdf"] }),
   output: "server",
   devToolbar: {
     enabled: false,

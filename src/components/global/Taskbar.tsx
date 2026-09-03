@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PixelIcon, { type PixelIconName } from "./icons/PixelIcon";
 
 const CLOCK_TICK_MS = 60 * 1000;
-export const CV_URI = "/rei-nova-cv.pdf";
+export const CV_URI = "/cv";
 export const CONTACT_EMAIL = "rei@soulboundlabs.com";
 const MAIL_URI = `mailto:${CONTACT_EMAIL}`;
 const GITHUB_URL = "https://github.com/metalogica";

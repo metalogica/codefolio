@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Compile src/cv/cv.html -> public/rei-nova-cv.pdf
+// Compile src/cv/cv.html -> public/cv.pdf
 //
 // Deliberately zero-dependency: it drives a Chrome binary that is already on the
 // machine rather than pulling in puppeteer. A devDependency would be installed on
@@ -24,7 +24,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const INPUT = join(ROOT, "src", "cv", "cv.html");
-const OUTPUT = join(ROOT, "public", "rei-nova-cv.pdf");
+const OUTPUT = join(ROOT, "public", "cv.pdf");
 const HOME = process.env.HOME ?? "";
 
 // Full Chrome writes the PDF and then lingers instead of exiting, so it needs a
@@ -175,4 +175,4 @@ if (!pdfIsUsable()) {
 }
 
 const kb = (statSync(OUTPUT).size / 1024).toFixed(0);
-console.log(`[build:cv] Wrote public/rei-nova-cv.pdf (${kb} KB) via ${browser.bin}`);
+console.log(`[build:cv] Wrote public/cv.pdf (${kb} KB) via ${browser.bin}`);
