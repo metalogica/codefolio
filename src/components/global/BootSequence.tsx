@@ -2,11 +2,21 @@ import { useEffect, useRef, useState } from "react";
 
 export const BOOT_DONE_KEY = "pc98-boot-done";
 
-const BOOT_LINE_DELAY_MS = 280;
+// Total boot budget is ~1.5s, short enough that the sequence reads as flavour
+// rather than a wait and nobody feels they have to click through it. The three
+// delays below are what spend that budget, so changing one means re-checking
+// the sum:
+//
+//   7 lines  x BOOT_LINE_DELAY_MS   =  980ms
+//   7 steps  x MEMORY_STEP_DELAY_MS =  245ms   (2048..15360 in 2048 increments)
+//             FINISH_HOLD_MS        =  250ms
+//                                     ------
+//                                     1475ms
+const BOOT_LINE_DELAY_MS = 140;
 const MEMORY_STEP_KB = 2048;
 const MEMORY_TOTAL_KB = 15360;
-const MEMORY_STEP_DELAY_MS = 70;
-const FINISH_HOLD_MS = 500;
+const MEMORY_STEP_DELAY_MS = 35;
+const FINISH_HOLD_MS = 250;
 
 const MEMORY_LINE_INDEX = 3;
 
