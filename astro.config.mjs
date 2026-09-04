@@ -23,6 +23,9 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
+      // /cv is an endpoint route (src/pages/cv.ts) the integration can't
+      // auto-discover, but the PDF is a real indexable URL.
+      customPages: ["https://rei.gg/cv"],
       serialize: (item) => {
         const url = item.url.endsWith("/") ? item.url.slice(0, -1) : item.url;
         return { ...item, url };

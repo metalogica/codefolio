@@ -1,6 +1,7 @@
 ---
 import BaseHead from '../components/global/BaseHead.astro';
 import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 ---
 
 <html
@@ -15,6 +16,7 @@ import Analytics from '@vercel/analytics/astro';
       openGraph={Astro.props.openGraph}
     />
     <Analytics />
+    <SpeedInsights />
     <script is:inline>
       // Pre-hydration gate: show the black boot cover only when the boot
       // sequence will actually run, so the desktop never flashes first.

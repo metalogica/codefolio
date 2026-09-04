@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import PixelIcon, { type PixelIconName } from "./icons/PixelIcon";
+import { trackEvent } from "../../lib/analytics";
+import { GITHUB_URL } from "../../content/socials";
 
 const CLOCK_TICK_MS = 60 * 1000;
 export const CV_URI = "/cv";
 export const CONTACT_EMAIL = "rei@soulboundlabs.com";
 const MAIL_URI = `mailto:${CONTACT_EMAIL}`;
-const GITHUB_URL = "https://github.com/metalogica";
 const CALENDLY_URL = "https://calendly.com/rei-soulboundlabs/30min";
 
 export type WindowId =
@@ -75,7 +76,12 @@ export default function Taskbar({ openWindows, onToggleWindow }: TaskbarProps) {
       </div>
 
       <div className="shrink-0 h-8 md:h-7 bevel-in px-2 flex items-center gap-2 text-black">
-        <a href={MAIL_URI} aria-label="Email" className="flex items-center">
+        <a
+          href={MAIL_URI}
+          aria-label="Email"
+          className="flex items-center"
+          onClick={() => trackEvent("email_click")}
+        >
           <PixelIcon name="mail" size={18} />
         </a>
         <a
@@ -84,6 +90,7 @@ export default function Taskbar({ openWindows, onToggleWindow }: TaskbarProps) {
           rel="noopener noreferrer"
           aria-label="GitHub"
           className="flex items-center"
+          onClick={() => trackEvent("github_click")}
         >
           <PixelIcon name="github" size={18} />
         </a>
@@ -93,6 +100,7 @@ export default function Taskbar({ openWindows, onToggleWindow }: TaskbarProps) {
           rel="noopener noreferrer"
           aria-label="Book a call"
           className="flex items-center"
+          onClick={() => trackEvent("calendly_click")}
         >
           <PixelIcon name="calendar" size={18} />
         </a>
@@ -102,6 +110,7 @@ export default function Taskbar({ openWindows, onToggleWindow }: TaskbarProps) {
           rel="noopener noreferrer"
           aria-label="Open CV"
           className="flex items-center md:hidden"
+          onClick={() => trackEvent("cv_open")}
         >
           <PixelIcon name="document" size={18} />
         </a>

@@ -47,4 +47,12 @@ export default [
       indent: ["error", 2],
     },
   },
+  {
+    // BaseHead's JSON-LD is JSON.stringify of static repo constants — the
+    // only sanctioned set:html in the codebase.
+    files: ["src/components/global/BaseHead.astro"],
+    rules: {
+      "astro/no-set-html-directive": "off",
+    },
+  },
 ];

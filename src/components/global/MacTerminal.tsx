@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import RetroWindow from "./RetroWindow";
 import { CONTACT_EMAIL } from "./Taskbar";
 import { IDENTITY, bioAsPromptContext } from "../../content/bio";
+import { trackEvent } from "../../lib/analytics";
 
 type Message = {
   role: "system" | "user" | "assistant";
@@ -146,6 +147,8 @@ If a question is unrelated to my work or portfolio, say: "That's outside my area
     const userInput = chatHistory.input.trim();
 
     if (!userInput) return;
+
+    trackEvent("chat_submit");
 
     setChatHistory((prev) => ({
       messages: [...prev.messages, { role: "user", content: userInput }],

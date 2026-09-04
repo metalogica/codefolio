@@ -1,10 +1,28 @@
 ---
 import '../../styles/global.css';
 import { AstroSeo } from '@astrolib/seo';
+import { IDENTITY } from '../../content/bio';
+import { GITHUB_URL, SOCIAL_LINKS, TWITTER_HANDLE } from '../../content/socials';
 
 const DEFAULT_TITLE = 'Rei Nova — Cofounder, Soulbound Labs';
 const DEFAULT_DESCRIPTION =
   'Cofounder of Soulbound Labs. Full stack engineer based in Montreal, QC.';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: IDENTITY.name,
+  url: 'https://rei.gg',
+  image: 'https://rei.gg/og.png',
+  jobTitle: 'Cofounder',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Soulbound Labs',
+    url: 'https://soulboundlabs.com',
+  },
+  homeLocation: { '@type': 'Place', name: IDENTITY.location },
+  sameAs: [GITHUB_URL, ...SOCIAL_LINKS.map((social) => social.url)],
+};
 ---
 
 <meta charset='UTF-8' />
@@ -21,6 +39,7 @@ const DEFAULT_DESCRIPTION =
   canonical={Astro.props.canonical || 'https://rei.gg'}
   openGraph={{
     url: Astro.props.openGraph?.url || 'https://rei.gg',
+    type: 'profile',
     title: Astro.props.openGraph?.title || DEFAULT_TITLE,
     description: Astro.props.openGraph?.description || DEFAULT_DESCRIPTION,
     images: [
@@ -32,8 +51,16 @@ const DEFAULT_DESCRIPTION =
       },
     ],
     site_name: Astro.props.openGraph?.site_name || 'rei.gg',
+    profile: { firstName: 'Rei', lastName: 'Nova' },
+  }}
+  twitter={{
+    handle: TWITTER_HANDLE,
+    site: TWITTER_HANDLE,
+    cardType: 'summary_large_image',
   }}
 />
+
+<script type='application/ld+json' set:html={JSON.stringify(personSchema)} />
 
 <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 <link rel='alternate icon' href='/favicon.ico' sizes='any' />

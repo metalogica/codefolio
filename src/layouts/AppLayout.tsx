@@ -13,6 +13,7 @@ import AppLauncherWindow, {
   type LauncherApp,
 } from "../components/global/AppLauncherWindow";
 import { MOBILE_BREAKPOINT } from "../components/global/useWindowControls";
+import { trackEvent } from "../lib/analytics";
 
 interface AppLayoutProps {
   initialBg: string;
@@ -79,7 +80,10 @@ export default function Desktop({
       id: "resume",
       name: "cv.pdf",
       icon: <PixelIcon name="document" size={32} />,
-      onClick: () => window.open(CV_URI, "_blank"),
+      onClick: () => {
+        trackEvent("cv_open");
+        window.open(CV_URI, "_blank");
+      },
     },
     {
       id: "socials",

@@ -1,6 +1,8 @@
 ---
 export const prerender = false;
 import AppLayout from '../layouts/AppLayout';
+import { IDENTITY, BIO_SECTIONS } from '../content/bio';
+import { SOCIAL_LINKS } from '../content/socials';
 
 // Poster/fallback for the ascii video — a frame from the video itself, so the
 // image that flashes before the 3.4MB video buffers matches the new background
@@ -8,7 +10,56 @@ import AppLayout from '../layouts/AppLayout';
 const backgroundMap = {
   'bg-3': '/bg-ascii-poster.jpg'
 };
+
+// Crawlable subset of the bio: identity, career, interests, profiles. The
+// personal sections ("My types", "My worldview", "Snapshots of my life") stay
+// client-only in the About window — deliberately out of search snippets.
+const career = BIO_SECTIONS.find((section) => section.heading === 'SYN/ACK');
+const interests = BIO_SECTIONS.find((section) =>
+  section.heading.startsWith('To get me yapping')
+);
 ---
+
+<main class='sr-only'>
+  <h1>{IDENTITY.name} — {IDENTITY.role}</h1>
+  <p>
+    {IDENTITY.studio}. Based in {IDENTITY.location}. Code at {IDENTITY.github}.
+  </p>
+  {
+    career?.body && (
+      <section>
+        <h2>{career.heading}</h2>
+        <p>{career.body}</p>
+      </section>
+    )
+  }
+  {
+    interests?.items && (
+      <section>
+        <h2>{interests.heading}</h2>
+        <ul>
+          {interests.items.map((item) => (
+            <li>{item.text}</li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+  <section>
+    <h2>Profiles</h2>
+    <ul>
+      {
+        SOCIAL_LINKS.map((social) => (
+          <li>
+            <a href={social.url} rel='me'>
+              {social.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</main>
 
 <AppLayout
   client:load
