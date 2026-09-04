@@ -36,3 +36,11 @@ doctrines:
     summary: The macOS-inspired desktop environment — window management (draggable/resizable terminal), MacToolbar, Dock, desktop icons, the background rotation system, and the desktop effects layer.
     triggers: [desktop, terminal, window, dock, toolbar, icon, background, drag, ripple, canvas, effect, animation]
     layer-hint: frontend
+
+  - id: seo
+    path: docs/doctrine/seo-doctrine.md
+    pointers: [AGENTS.md]
+    summary: The SEO operational lifecycle — canonical/metadata/sitemap invariants, conversion-event instrumentation, the monthly five-metric review, and the verification procedure for large content updates.
+    triggers: [seo, sitemap, analytics, indexing, canonical, meta, search console, structured data]
+    paths: [src/content/**, src/components/global/BaseHead.astro, src/components/LandingPage.astro, astro.config.mjs]
+    layer-hint: cross-cutting

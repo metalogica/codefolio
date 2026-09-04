@@ -34,6 +34,10 @@ Every change is bound to the doctrines registered in `docs/doctrine/doctrine-man
 - `docs/doctrine/desktop-doctrine.md` — the macOS-inspired desktop environment: window management
   (draggable/resizable terminal), MacToolbar, Dock, desktop icons, and background rotation. Read
   before touching the desktop UI.
+- `docs/doctrine/seo-doctrine.md` — the SEO operational lifecycle: canonical/metadata/sitemap
+  invariants, conversion-event instrumentation, the monthly five-metric review, and the mandatory
+  verification procedure after large content updates. Read before touching indexable content, meta
+  tags, the sitemap, or analytics.
 
 Add your own stack/domain doctrines with `/substrate:add-doctrine`; each self-registers in the manifest.
 
