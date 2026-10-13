@@ -104,7 +104,7 @@ This project uses **pnpm**. Always use pnpm instead of npm or yarn.
 - Manages background rotation using localStorage
 - Coordinates the Taskbar, desktop icons, and every window
 - Persistent windows (terminal, chat) share the z-20 band; `stackOrder` raises the last-touched one
-- Desktop icons configuration (About Me, Chat, cv.pdf, Socials, launcher apps)
+- Desktop icons configuration (About Me, Chat, Terminal, cv.pdf, Socials, launcher apps)
 
 **MacTerminal.tsx** (src/components/global/MacTerminal.tsx)
 - Terminal emulator (opens on desktop load): `ls`, `pwd`, `cat`/`open`, `history`, `help`, `clear`, Tab completion, ↑/↓
@@ -114,7 +114,7 @@ This project uses **pnpm**. Always use pnpm instead of npm or yarn.
   `cv-text.ts`, `session.ts`); files (`about.txt`, `cv.txt`, `socials.txt`, `<app>.txt`) render from the content modules
 
 **ChatWindow.tsx** (src/components/global/ChatWindow.tsx)
-- PC-98 messenger window (`A:\REI\CHAT.EXE`) with the OpenRouter chatbot via `/api/chat`
+- PC-98 messenger window (`A:\REI\CHAT.EXE`) with the OpenRouter chatbot via `/api/chat`, framed as Rei's digital avatar
 - System prompt defines personality: "You ARE Rei Nova" (first-person), grounded in `bioAsPlainText()`
 - While a reply is pending: a stepped pixel typing-dots bubble (`animate-typing-dot` in `global.css`, off under reduced motion)
 

@@ -96,6 +96,12 @@ export default function Desktop({
       onClick: () => toggleWindow("chat"),
     },
     {
+      id: "terminal",
+      name: "Terminal",
+      icon: <PixelIcon name="terminal" size={32} />,
+      onClick: () => toggleWindow("terminal"),
+    },
+    {
       id: "resume",
       name: "cv.pdf",
       icon: <PixelIcon name="document" size={32} />,

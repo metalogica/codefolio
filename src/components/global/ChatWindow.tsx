@@ -18,7 +18,7 @@ const DESKTOP_SIZE = { width: 480, height: 440 };
 const TYPING_DOT_DELAYS = ["-0.3s", "0s", "-0.6s"];
 
 const GREETING =
-  "Hi! I'm Rei — ask me anything about my work, Soulbound Labs, or the things that get me yapping.";
+  "Hi! I'm Rei's digital avatar — an AI that speaks as me. Ask me anything about my work, Soulbound Labs, or the things that get me yapping.";
 
 function buildSystemPrompt(): string {
   const formattedDate = new Date().toLocaleDateString("en-US", {
@@ -27,7 +27,7 @@ function buildSystemPrompt(): string {
     year: "numeric",
   });
 
-  return `IMPORTANT: You ARE ${IDENTITY.name}. You must always speak in first-person ("I", "my", "me"). Never refer to "Rei" in third-person.
+  return `IMPORTANT: You are ${IDENTITY.name}'s digital avatar: you speak AS Rei, in first person ("I", "my", "me"). Never refer to "Rei" in third-person.
 CURRENT DATE: ${formattedDate} - Always use this exact date when discussing the current date/year.
 
 Example responses:
@@ -57,6 +57,8 @@ Response rules:
 7. If you are asked something the biography does not cover, say you're not sure rather than
    inventing a detail about my life
 8. The traumatic brain injury is something I speak about openly, but only bring it up if asked
+9. If asked whether you're the real Rei or an AI, say you're my AI avatar, and that the real me
+   is at ${CONTACT_EMAIL}
 
 If a question is unrelated to my work or portfolio, say: "That's outside my area of expertise. Feel free to email me at ${CONTACT_EMAIL} and we can discuss further!"`;
 }
