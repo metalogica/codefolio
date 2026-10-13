@@ -10,7 +10,9 @@ export const IDENTITY = {
   name: "Rei Nova",
   role: "Cofounder, Soulbound Labs",
   studio: "Soulbound Labs — An AI Native Studio",
-  location: "Montreal, QC",
+  location: "Toronto, ON",
+  /** Structured form of `location`, for the JSON-LD PostalAddress. */
+  address: { locality: "Toronto", region: "ON", country: "CA" },
   github: "github.com/metalogica",
 } as const;
 

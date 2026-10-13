@@ -92,7 +92,7 @@ li {
   justify-content: space-evenly;
   align-items: center;
   font-size: 0.8em;
-  gap: 20px;
+  gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 20px;
 }
@@ -100,7 +100,15 @@ li {
 .contact-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
+}
+
+/* Emoji stand-in for a 25px PNG contact icon. */
+.contact-emoji {
+  width: 25px;
+  font-size: 20px;
+  line-height: 1;
+  text-align: center;
 }
 
 .tech-category {
@@ -161,7 +169,7 @@ li {
     text-decoration: none !important;
   }
 
-  a, a:visited {
+  a, a:visited, .contact-item {
     color: #000 !important;
   }
 

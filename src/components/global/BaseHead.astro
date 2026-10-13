@@ -5,8 +5,7 @@ import { IDENTITY } from '../../content/bio';
 import { GITHUB_URL, SOCIAL_LINKS, TWITTER_HANDLE } from '../../content/socials';
 
 const DEFAULT_TITLE = 'Rei Nova — Cofounder, Soulbound Labs';
-const DEFAULT_DESCRIPTION =
-  'Cofounder of Soulbound Labs. Full stack engineer based in Montreal, QC.';
+const DEFAULT_DESCRIPTION = `Cofounder of Soulbound Labs. Full stack engineer based in ${IDENTITY.location}.`;
 
 const personSchema = {
   '@context': 'https://schema.org',
@@ -20,7 +19,16 @@ const personSchema = {
     name: 'Soulbound Labs',
     url: 'https://soulboundlabs.com',
   },
-  homeLocation: { '@type': 'Place', name: IDENTITY.location },
+  homeLocation: {
+    '@type': 'Place',
+    name: IDENTITY.location,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: IDENTITY.address.locality,
+      addressRegion: IDENTITY.address.region,
+      addressCountry: IDENTITY.address.country,
+    },
+  },
   sameAs: [GITHUB_URL, ...SOCIAL_LINKS.map((social) => social.url)],
 };
 ---
