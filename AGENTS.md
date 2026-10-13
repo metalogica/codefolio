@@ -107,14 +107,16 @@ This project uses **pnpm**. Always use pnpm instead of npm or yarn.
 - Desktop icons configuration (About Me, Chat, cv.pdf, Socials, launcher apps)
 
 **MacTerminal.tsx** (src/components/global/MacTerminal.tsx)
-- Terminal emulator (opens on desktop load): `ls`, `pwd`, `cat`/`open`, `help`, `clear`, Tab completion, history
+- Terminal emulator (opens on desktop load): `ls`, `pwd`, `cat`/`open`, `history`, `help`, `clear`, Tab completion, ↑/↓
+- Screen + command history persist for the tab (sessionStorage via `src/lib/terminal/session.ts`) across close/reopen and reloads
 - Every other command prints a "permission denied — guest lacks sysadmin privileges" error
 - Command + virtual-filesystem logic is pure TS in `src/lib/terminal/` (`commands.ts`, `vfs.ts`,
-  `cv-text.ts`); files (`about.txt`, `cv.txt`, `socials.txt`, `<app>.txt`) render from the content modules
+  `cv-text.ts`, `session.ts`); files (`about.txt`, `cv.txt`, `socials.txt`, `<app>.txt`) render from the content modules
 
 **ChatWindow.tsx** (src/components/global/ChatWindow.tsx)
 - PC-98 messenger window (`A:\REI\CHAT.EXE`) with the OpenRouter chatbot via `/api/chat`
 - System prompt defines personality: "You ARE Rei Nova" (first-person), grounded in `bioAsPlainText()`
+- While a reply is pending: a stepped pixel typing-dots bubble (`animate-typing-dot` in `global.css`, off under reduced motion)
 
 **API Routes** (src/pages/api/)
 - `chat.ts` - OpenRouter chat completions endpoint (POST), via the OpenAI SDK pointed at

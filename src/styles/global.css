@@ -35,6 +35,27 @@
   --color-pc98-red: #a80000;
   --font-bitmap: 'DotGothic16', 'MS Gothic', 'Osaka-Mono', sans-serif;
   --font-terminal: 'Web437 IBM VGA', 'Menlo', 'Monaco', monospace;
+
+  /* Chat typing bubble: each dot is lit for one third of the cycle. steps()
+     makes it jump frame-to-frame like old sprite animation; CSS-only, and it
+     only runs while the bubble is mounted. */
+  --animate-typing-dot: typing-dot 0.9s steps(1, end) infinite;
+
+  @keyframes typing-dot {
+    0% {
+      opacity: 0.25;
+      transform: translateY(0);
+    }
+    33.33% {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+    66.67%,
+    100% {
+      opacity: 0.25;
+      transform: translateY(0);
+    }
+  }
 }
 
 @layer base {

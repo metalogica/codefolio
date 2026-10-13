@@ -4,7 +4,15 @@
 import { trackEvent } from "../analytics";
 import { HOME, VIRTUAL_FILES, isHomeDirectory, resolveFile } from "./vfs";
 
-export const COMMAND_NAMES = ["cat", "clear", "help", "ls", "open", "pwd"] as const;
+export const COMMAND_NAMES = [
+  "cat",
+  "clear",
+  "help",
+  "history",
+  "ls",
+  "open",
+  "pwd",
+] as const;
 
 // Commands whose arguments are paths — Tab completes file names after these.
 const PATH_COMMANDS = new Set<string>(["cat", "ls", "open"]);
@@ -13,11 +21,13 @@ const PATH_COMMANDS = new Set<string>(["cat", "ls", "open"]);
 const COMPLETION_PATH_PREFIX = /^(\.\/|~\/|\/home\/guest\/)?(.*)$/;
 
 const LS_SEPARATOR = "    ";
+const HISTORY_NUMBER_WIDTH = 5;
 
 const HELP_TEXT = `Available commands:
   ls [file]     list files in ${HOME}
   pwd           print the working directory
   cat <file>    print a file (alias: open)
+  history [n]   show command history (-c clears it)
   clear         clear the screen
   help          show this message
 
@@ -28,6 +38,13 @@ export interface CommandResult {
   output?: string;
   isError?: boolean;
   clear?: boolean;
+  /** Set by `history -c`: the caller empties its command history. */
+  clearHistory?: boolean;
+}
+
+export interface CommandContext {
+  /** Every command entered so far, including the one being run (as bash). */
+  history: string[];
 }
 
 export interface Completion {
@@ -63,6 +80,25 @@ function listFiles(args: string[]): CommandResult {
   return { output: lines.join("\n"), isError: failures === paths.length };
 }
 
+function showHistory(args: string[], history: string[]): CommandResult {
+  const [option] = args;
+  if (option === "-c") return { clearHistory: true };
+  if (option?.startsWith("-")) {
+    return { output: `history: ${option}: invalid option`, isError: true };
+  }
+
+  const count = option === undefined ? history.length : Number(option);
+  if (!Number.isInteger(count) || count < 0) {
+    return { output: `history: ${option}: numeric argument required`, isError: true };
+  }
+
+  const start = Math.max(0, history.length - count);
+  const rows = history
+    .slice(start)
+    .map((cmd, i) => `${String(start + i + 1).padStart(HISTORY_NUMBER_WIDTH)}  ${cmd}`);
+  return rows.length > 0 ? { output: rows.join("\n") } : {};
+}
+
 async function readFiles(command: string, args: string[]): Promise<CommandResult> {
   if (args.length === 0) {
     return { output: `${command}: missing file operand\nUsage: ${command} <file>`, isError: true };
@@ -93,7 +129,10 @@ async function readFiles(command: string, args: string[]): Promise<CommandResult
   return { output: outputs.join("\n\n"), isError: failures === args.length };
 }
 
-export async function runCommand(line: string): Promise<CommandResult> {
+export async function runCommand(
+  line: string,
+  { history }: CommandContext,
+): Promise<CommandResult> {
   const [command, ...args] = tokenize(line);
   if (!command) return {};
 
@@ -104,6 +143,8 @@ export async function runCommand(line: string): Promise<CommandResult> {
       return { output: HOME };
     case "clear":
       return { clear: true };
+    case "history":
+      return showHistory(args, history);
     case "ls":
       return listFiles(args);
     case "cat":

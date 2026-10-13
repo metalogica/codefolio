@@ -1,9 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import RetroWindow from "./RetroWindow";
 import { MOBILE_BREAKPOINT, tallMobileLayout } from "./useWindowControls";
 import { IDENTITY } from "../../content/bio";
 import { CONTACT_EMAIL } from "../../content/socials";
 import { completeInput, runCommand } from "../../lib/terminal/commands";
+import {
+  loadSession,
+  saveSession,
+  type TerminalLine,
+} from "../../lib/terminal/session";
 
 const PROMPT = "guest@rei ~ %";
 const CANDIDATE_SEPARATOR = "  ";
@@ -24,24 +29,38 @@ Type 'help' to list commands, or 'ls' to look around.
 Want to talk to me? Open Chat on the desktop.
 `;
 
-type Line = {
-  kind: "prompt" | "output" | "error";
-  text: string;
-};
-
 interface MacTerminalProps {
   onClose: () => void;
 }
 
 export default function MacTerminal({ onClose }: MacTerminalProps) {
-  const [lines, setLines] = useState<Line[]>([{ kind: "output", text: BANNER }]);
+  const [lines, setLines] = useState<TerminalLine[]>([
+    { kind: "output", text: BANNER },
+  ]);
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number | null>(null);
   const [isBusy, setIsBusy] = useState(false);
+  // False until any saved session is loaded, so the fresh banner can't
+  // overwrite it on the first save.
+  const [isRestored, setIsRestored] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const linesEndRef = useRef<HTMLDivElement>(null);
+
+  // Restore before first paint so a reopened window never flashes the banner.
+  useLayoutEffect(() => {
+    const session = loadSession();
+    if (session) {
+      setLines(session.lines);
+      setHistory(session.history);
+    }
+    setIsRestored(true);
+  }, []);
+
+  useEffect(() => {
+    if (isRestored) saveSession({ lines, history });
+  }, [isRestored, lines, history]);
 
   // Focus on open, desktop only — on mobile it would pop the keyboard.
   useEffect(() => {
@@ -57,19 +76,21 @@ export default function MacTerminal({ onClose }: MacTerminalProps) {
     if (isBusy) return;
 
     const line = input;
+    const nextHistory = line.trim() ? [...history, line] : history;
     setInput("");
     setHistoryIndex(null);
-    if (line.trim()) setHistory((prev) => [...prev, line]);
+    setHistory(nextHistory);
     setLines((prev) => [...prev, { kind: "prompt", text: line }]);
 
     setIsBusy(true);
-    const result = await runCommand(line);
+    const result = await runCommand(line, { history: nextHistory });
     setIsBusy(false);
 
+    if (result.clearHistory) setHistory([]);
     if (result.clear) {
       setLines([]);
     } else if (result.output) {
-      const output: Line = {
+      const output: TerminalLine = {
         kind: result.isError ? "error" : "output",
         text: result.output,
       };

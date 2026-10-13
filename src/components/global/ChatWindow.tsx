@@ -13,6 +13,10 @@ type Message = {
 const DESKTOP_POSITION = { x: 520, y: 120 };
 const DESKTOP_SIZE = { width: 480, height: 440 };
 
+// Negative delays put each dot mid-cycle from the first frame, so the three
+// light up left to right with no all-dim start.
+const TYPING_DOT_DELAYS = ["-0.3s", "0s", "-0.6s"];
+
 const GREETING =
   "Hi! I'm Rei — ask me anything about my work, Soulbound Labs, or the things that get me yapping.";
 
@@ -153,6 +157,21 @@ export default function ChatWindow({ onClose }: ChatWindowProps) {
               </p>
             </div>
           ))}
+          {isTyping && (
+            // Visual only — the status bar's live region announces typing.
+            <div className="grid grid-cols-[auto_1fr] gap-x-2" aria-hidden="true">
+              <span className="font-bold text-pc98-title">REI:</span>
+              <div className="justify-self-start flex items-center gap-1.5 px-3 py-2.5 bevel-out bg-pc98-face-lt">
+                {TYPING_DOT_DELAYS.map((delay) => (
+                  <span
+                    key={delay}
+                    className="block w-2 h-2 bg-pc98-title animate-typing-dot motion-reduce:animate-none"
+                    style={{ animationDelay: delay }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
           <div ref={messagesEndRef} />
         </div>
 
@@ -178,7 +197,7 @@ export default function ChatWindow({ onClose }: ChatWindowProps) {
         {/* Status bar — also keeps the resize grip clear of the SEND button. */}
         <div
           className={`shrink-0 h-4 px-1 text-[11px] leading-4 text-pc98-shadow ${
-            isTyping ? "animate-pulse" : ""
+            isTyping ? "animate-pulse motion-reduce:animate-none" : ""
           }`}
           aria-live="polite"
         >

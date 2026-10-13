@@ -4,8 +4,8 @@
 > or desktop-layer effects.
 
 **Authority**: Binding
-**Version**: 0.3.0
-**Date**: 2026-10-12
+**Version**: 0.3.1
+**Date**: 2026-10-13
 **Status**: Active
 
 ---
@@ -39,7 +39,7 @@
 - SHOULD: background consumers receive the resolved wallpaper URL as a **prop from AppLayout** (`backgroundUrl={backgroundMap[currentBg]}`) rather than reading selection state or `lastBackground` localStorage themselves.
 - SHOULD: express tuning parameters as **named module-level constants** (SCREAMING_SNAKE) at the top of the file — no inline magic numbers — so behaviour is legible and adjustable in one place.
 - SHOULD: keep any pure computation (e.g. a simulation step) as **exported pure functions** separate from the React lifecycle, so it can be unit-tested later without restructuring.
-- SHOULD: keep terminal command parsing, completion, and the virtual filesystem as pure TS in `src/lib/terminal/` — no React, no DOM at module scope — and render every virtual file from the content modules (`src/content/*`, `src/cv/cv.html`), never from a hand-copied string.
+- SHOULD: keep terminal command parsing, completion, and the virtual filesystem as pure TS in `src/lib/terminal/` — no React, no DOM at module scope — and render every virtual file from the content modules (`src/content/*`, `src/cv/cv.html`), never from a hand-copied string. Session persistence (scrollback + command history) lives in `src/lib/terminal/session.ts`: sessionStorage only, read/written from effects, every access in try/catch, loaded data shape-checked, sizes capped.
 - SHOULD: put **all** browser API access (`window`, `document`, `matchMedia`, canvas) inside `useEffect` — desktop components are SSR'd by `client:load`, so render must touch no browser globals.
 
 ---
@@ -83,5 +83,6 @@ The ripple canvas sits between the wallpaper and the toolbar purely by source or
 | Version | Date | Changes |
 |---------|------|---------|
 | 0.1.0 | 2026-07-19 | Initial draft (scaffolded by /substrate:add-doctrine) |
+| 0.3.1 | 2026-10-13 | Terminal session persistence (`session.ts`, sessionStorage) + `history` command; chat typing bubble is CSS-only (`animate-typing-dot`, `motion-reduce:animate-none`). |
 | 0.3.0 | 2026-10-12 | Split the chatbot out of TERMINAL.EXE into `ChatWindow.tsx`; the terminal became an emulator over a virtual FS (`src/lib/terminal/`). Renamed the `z-20` band to persistent windows (terminal, chat) and ratified the in-band `stackOrder` raise rule; added the pure-terminal-logic SHOULD. |
 | 0.2.0 | 2026-07-20 | Filled from the ascii-ripple epic (`docs/tasks/completed/ascii-ripple/`). Ratified the desktop effects-layer contract the landed `AsciiRipple.tsx` + AppLayout mount demonstrate: pointer-events-none DOM-order overlays with no z band, self-suspending rAF loops, document-level passive input observation, `prefers-reduced-motion` gating incl. live changes, background URL via prop, named-constant tuning, SSR-safe browser-API-in-effect. Retitled H1 to `(DOCTRINE)` + added preload blockquote; Status Draft → Active. |
