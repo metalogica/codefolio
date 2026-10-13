@@ -3,17 +3,17 @@ import type { JSX } from "react";
 import { useEffect, useState } from "react";
 import AsciiRipple from "../components/global/AsciiRipple";
 import MacTerminal from "../components/global/MacTerminal";
+import ChatWindow from "../components/global/ChatWindow";
 import AboutWindow from "../components/global/AboutWindow";
 import SocialsWindow from "../components/global/SocialsWindow";
 import SpotifyWindow from "../components/global/SpotifyWindow";
 import Taskbar, { CV_URI, type WindowId } from "../components/global/Taskbar";
 import PixelIcon from "../components/global/icons/PixelIcon";
 import BootSequence from "../components/global/BootSequence";
-import AppLauncherWindow, {
-  type LauncherApp,
-} from "../components/global/AppLauncherWindow";
+import AppLauncherWindow from "../components/global/AppLauncherWindow";
 import { MOBILE_BREAKPOINT } from "../components/global/useWindowControls";
 import { trackEvent } from "../lib/analytics";
+import { LAUNCHER_APPS } from "../content/apps";
 
 interface AppLayoutProps {
   initialBg: string;
@@ -28,24 +28,17 @@ interface DesktopIcon {
   onClick?: () => void;
 }
 
+// Persistent windows share the z-20 band and stay open on outside clicks;
+// within the band the most recently touched one paints on top.
+const PERSISTENT_WINDOWS = ["terminal", "chat"] as const;
+type PersistentWindowId = (typeof PERSISTENT_WINDOWS)[number];
 
-const LAUNCHER_APPS: Array<
-  LauncherApp & { windowId: WindowId; desktopPosition: { x: number; y: number } }
-> = [
-  {
-    id: "soulbound",
-    windowId: "soulbound",
-    name: "Soulbound Labs",
-    exeName: "SOULBOUND.EXE",
-    screenshotUrl: "/soulbound-labs.png",
-    blurb: "An AI Native Studio",
-    url: "https://soulboundlabs.com",
-    desktopPosition: { x: 340, y: 180 },
-  },
-];
+const isPersistentWindow = (id: WindowId): id is PersistentWindowId =>
+  (PERSISTENT_WINDOWS as readonly WindowId[]).includes(id);
 
 const CLOSED_WINDOWS: Record<WindowId, boolean> = {
   terminal: false,
+  chat: false,
   about: false,
   socials: false,
   spotify: false,
@@ -60,8 +53,28 @@ export default function Desktop({
   const [currentBg] = useState<string>(initialBg);
   const [openWindows, setOpenWindows] =
     useState<Record<WindowId, boolean>>(CLOSED_WINDOWS);
+  // Back-to-front paint order of the persistent windows.
+  const [stackOrder, setStackOrder] = useState<PersistentWindowId[]>([
+    ...PERSISTENT_WINDOWS,
+  ]);
 
+  const raiseWindow = (id: PersistentWindowId) => {
+    setStackOrder((prev) =>
+      prev[prev.length - 1] === id ? prev : [...prev.filter((w) => w !== id), id],
+    );
+  };
+
+  // A persistent window that is open but behind another is raised rather
+  // than closed, like clicking a background window's taskbar button.
   const toggleWindow = (id: WindowId) => {
+    if (isPersistentWindow(id)) {
+      const isOnTop = stackOrder[stackOrder.length - 1] === id;
+      if (openWindows[id] && !isOnTop) {
+        raiseWindow(id);
+        return;
+      }
+      if (!openWindows[id]) raiseWindow(id);
+    }
     setOpenWindows((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
@@ -75,6 +88,12 @@ export default function Desktop({
       name: "About Me",
       icon: <PixelIcon name="info" size={32} />,
       onClick: () => toggleWindow("about"),
+    },
+    {
+      id: "chat",
+      name: "Chat",
+      icon: <PixelIcon name="chat" size={32} />,
+      onClick: () => toggleWindow("chat"),
     },
     {
       id: "resume",
@@ -169,13 +188,28 @@ export default function Desktop({
         </div>
       </div>
 
-      {openWindows.terminal && (
-        <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-          <div className="pointer-events-auto">
-            <MacTerminal onClose={() => closeWindow("terminal")} />
-          </div>
-        </div>
-      )}
+      <div className="absolute inset-0 z-20 pointer-events-none">
+        {PERSISTENT_WINDOWS.map(
+          (id) =>
+            openWindows[id] && (
+              <div
+                key={id}
+                className="absolute inset-0 pointer-events-none"
+                style={{ zIndex: stackOrder.indexOf(id) + 1 }}
+                onMouseDownCapture={() => raiseWindow(id)}
+                onTouchStartCapture={() => raiseWindow(id)}
+              >
+                <div className="pointer-events-auto">
+                  {id === "terminal" ? (
+                    <MacTerminal onClose={() => closeWindow("terminal")} />
+                  ) : (
+                    <ChatWindow onClose={() => closeWindow("chat")} />
+                  )}
+                </div>
+              </div>
+            ),
+        )}
+      </div>
 
       {openWindows.about && (
         <div className="absolute inset-0 z-25 pointer-events-auto">

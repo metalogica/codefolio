@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import PixelIcon, { type PixelIconName } from "./icons/PixelIcon";
 import { trackEvent } from "../../lib/analytics";
-import { GITHUB_URL } from "../../content/socials";
+import {
+  CALENDLY_URL,
+  CONTACT_EMAIL,
+  GITHUB_URL,
+} from "../../content/socials";
 
 const CLOCK_TICK_MS = 60 * 1000;
 export const CV_URI = "/cv";
-export const CONTACT_EMAIL = "rei@soulboundlabs.com";
 const MAIL_URI = `mailto:${CONTACT_EMAIL}`;
-const CALENDLY_URL = "https://calendly.com/rei-soulboundlabs/30min";
 
 export type WindowId =
   | "terminal"
+  | "chat"
   | "about"
   | "socials"
   | "spotify"
@@ -18,6 +21,7 @@ export type WindowId =
 
 const WINDOW_META: Record<WindowId, { label: string; icon: PixelIconName }> = {
   terminal: { label: "TERMINAL", icon: "terminal" },
+  chat: { label: "CHAT", icon: "chat" },
   about: { label: "ABOUT", icon: "info" },
   socials: { label: "SOCIALS", icon: "share" },
   spotify: { label: "SPOTIFY", icon: "music" },

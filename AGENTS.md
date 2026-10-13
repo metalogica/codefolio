@@ -4,7 +4,7 @@
 > and cross-tool agents read one source. Read this first, then open the doctrine for the
 > area you're working in.
 
-Portfolio website for Rei Jarram — a macOS-inspired desktop interface built with Astro 5.3.1, React 19, and Tailwind CSS 4, featuring a draggable terminal window with an OpenRouter-powered chatbot. SSR on Vercel at https://rei.gg.
+Portfolio website for Rei Jarram — a macOS-inspired desktop interface built with Astro 5.3.1, React 19, and Tailwind CSS 4, featuring a draggable terminal emulator and an OpenRouter-powered chat window. SSR on Vercel at https://rei.gg.
 
 ## Verification gates — declared, never assumed
 
@@ -64,7 +64,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a portfolio website for Rei Jarram built with Astro 5.3.1, React 19, and Tailwind CSS 4. The site features a macOS-inspired desktop interface with a draggable/resizable terminal window that includes an OpenRouter-powered chatbot. The project is deployed on Vercel with SSR enabled.
+This is a portfolio website for Rei Jarram built with Astro 5.3.1, React 19, and Tailwind CSS 4. The site features a macOS-inspired desktop interface with a draggable/resizable terminal emulator and a separate OpenRouter-powered chat window. The project is deployed on Vercel with SSR enabled.
 
 ## Development Commands
 
@@ -95,22 +95,26 @@ This project uses **pnpm**. Always use pnpm instead of npm or yarn.
 **React Components** (`src/components/**/*.tsx`, `src/layouts/*.tsx`)
 - Interactive UI components requiring client-side state
 - `AppLayout.tsx` uses `client:load` directive in `LandingPage.astro`
-- All global UI components (MacTerminal, MacToolbar, Docks) are React
+- All global UI components (MacTerminal, ChatWindow, Taskbar, windows) are React
 
 ### Key Components
 
 **AppLayout.tsx** (src/layouts/AppLayout.tsx)
 - Main desktop environment orchestrator
 - Manages background rotation using localStorage
-- Coordinates MacToolbar, MacTerminal, and Dock components
-- Desktop icons configuration (currently includes cv.pdf)
+- Coordinates the Taskbar, desktop icons, and every window
+- Persistent windows (terminal, chat) share the z-20 band; `stackOrder` raises the last-touched one
+- Desktop icons configuration (About Me, Chat, cv.pdf, Socials, launcher apps)
 
 **MacTerminal.tsx** (src/components/global/MacTerminal.tsx)
-- Draggable/resizable terminal window (desktop only, hidden on mobile)
-- OpenRouter chatbot integration via `/api/chat` endpoint
-- System prompt defines personality: "You ARE Rei Jarram" (first-person responses)
-- Placeholder animation cycling
-- Mobile detection hides component on mobile devices
+- Terminal emulator (opens on desktop load): `ls`, `pwd`, `cat`/`open`, `help`, `clear`, Tab completion, history
+- Every other command prints a "permission denied — guest lacks sysadmin privileges" error
+- Command + virtual-filesystem logic is pure TS in `src/lib/terminal/` (`commands.ts`, `vfs.ts`,
+  `cv-text.ts`); files (`about.txt`, `cv.txt`, `socials.txt`, `<app>.txt`) render from the content modules
+
+**ChatWindow.tsx** (src/components/global/ChatWindow.tsx)
+- PC-98 messenger window (`A:\REI\CHAT.EXE`) with the OpenRouter chatbot via `/api/chat`
+- System prompt defines personality: "You ARE Rei Nova" (first-person), grounded in `bioAsPlainText()`
 
 **API Routes** (src/pages/api/)
 - `chat.ts` - OpenRouter chat completions endpoint (POST), via the OpenAI SDK pointed at
@@ -141,7 +145,7 @@ This project uses **pnpm**. Always use pnpm instead of npm or yarn.
 ## Project Structure Notes
 
 - `src/assets/images/` - Static image assets (mac backgrounds)
-- `src/components/global/` - Reusable UI components (MacToolbar, Docks, Terminal)
+- `src/components/global/` - Reusable UI components (Taskbar, windows, Terminal, Chat)
 - `src/pages/` - File-based routes (index.astro, api/*)
 - `src/layouts/` - Layout components (Layout.astro for HTML shell, AppLayout.tsx for desktop)
 - `public/` - Static files served at root (CV PDF, robots.txt)

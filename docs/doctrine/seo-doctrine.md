@@ -22,7 +22,8 @@
   `src/components/LandingPage.astro` and the content modules that feed it
   (`src/content/bio.ts`, `src/content/socials.ts`).
 - Conversion analytics: the typed event vocabulary in `src/lib/analytics.ts` and its
-  call sites (Taskbar, desktop CV icon, SocialsWindow, MacTerminal).
+  call sites (Taskbar, desktop CV icon, SocialsWindow, ChatWindow `chat_submit`, and the
+  terminal's `cat cv.txt` → `cv_open` via `VirtualFile.event` in `src/lib/terminal/vfs.ts`).
 
 ### Out of scope
 - The visual desktop environment — windows, icons, effects (`desktop-doctrine.md`).

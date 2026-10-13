@@ -1,8 +1,9 @@
 // Single source of truth for Rei's bio.
 //
-// Two consumers read from here, so they can never drift apart:
-//   - AboutWindow.tsx  — renders these sections as ABOUT.TXT
-//   - MacTerminal.tsx  — flattens them into the chatbot's system prompt
+// Consumers read from here, so they can never drift apart:
+//   - AboutWindow.tsx     — renders these sections as ABOUT.TXT
+//   - ChatWindow.tsx      — flattens them into the chatbot's system prompt
+//   - lib/terminal/vfs.ts — flattens them into the terminal's about.txt
 //
 // Edit the prose here, not in either component.
 
@@ -100,8 +101,8 @@ export const BIO_SECTIONS: BioSection[] = [
   },
 ];
 
-/** Flatten the bio into plain text for the chatbot's system prompt. */
-export function bioAsPromptContext(): string {
+/** Flatten the bio into plain text (chatbot system prompt, terminal about.txt). */
+export function bioAsPlainText(): string {
   return BIO_SECTIONS.map((section) => {
     const lines = [section.heading.toUpperCase()];
     if (section.body) lines.push(section.body);

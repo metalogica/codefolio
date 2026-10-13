@@ -7,6 +7,8 @@ export const MOBILE_BREAKPOINT = 768;
 const MOBILE_EDGE_PADDING = 10;
 const DEFAULT_MOBILE_Y = 100;
 const DEFAULT_MOBILE_HEIGHT = 400;
+const TALL_MOBILE_TOP_OFFSET = 80;
+const TALL_MOBILE_BOTTOM_MARGIN = 200;
 
 export interface WindowPosition {
   x: number;
@@ -37,6 +39,18 @@ const defaultMobileLayout = (viewportWidth: number): WindowLayout => ({
   size: {
     width: viewportWidth - MOBILE_EDGE_PADDING * 2,
     height: DEFAULT_MOBILE_HEIGHT,
+  },
+});
+
+/** Near-full-height mobile layout for the interactive windows (terminal, chat). */
+export const tallMobileLayout = (
+  viewportWidth: number,
+  viewportHeight: number,
+): WindowLayout => ({
+  position: { x: MOBILE_EDGE_PADDING, y: TALL_MOBILE_TOP_OFFSET },
+  size: {
+    width: viewportWidth - MOBILE_EDGE_PADDING * 2,
+    height: viewportHeight - TALL_MOBILE_BOTTOM_MARGIN,
   },
 });
 
