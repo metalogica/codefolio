@@ -109,7 +109,7 @@ This project uses **pnpm**. Always use pnpm instead of npm or yarn.
 **MacTerminal.tsx** (src/components/global/MacTerminal.tsx)
 - Terminal emulator (opens on desktop load): `ls`, `pwd`, `cat`/`open`, `history`, `help`, `clear`, Tab completion, ↑/↓
 - Screen + command history persist for the tab (sessionStorage via `src/lib/terminal/session.ts`) across close/reopen and reloads
-- Every other command prints a "permission denied — guest lacks sysadmin privileges" error
+- Real Unix commands (`rm`, `sudo`, `vim`, …) print a "permission denied — guest lacks sysadmin privileges" error; anything else prints `zsh: command not found: <cmd>`
 - Command + virtual-filesystem logic is pure TS in `src/lib/terminal/` (`commands.ts`, `vfs.ts`,
   `cv-text.ts`, `session.ts`); files (`about.txt`, `cv.txt`, `socials.txt`, `<app>.txt`) render from the content modules
 

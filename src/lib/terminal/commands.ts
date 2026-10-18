@@ -17,6 +17,18 @@ export const COMMAND_NAMES = [
 // Commands whose arguments are paths — Tab completes file names after these.
 const PATH_COMMANDS = new Set<string>(["cat", "ls", "open"]);
 
+// Real Unix commands guest isn't allowed to run. Anything else is "command not found".
+const UNIX_COMMANDS = new Set<string>([
+  "apt", "awk", "bash", "brew", "cd", "chmod", "chown", "cp", "crontab", "curl", "date",
+  "dd", "df", "diff", "dig", "du", "echo", "emacs", "env", "exit", "export", "fdisk", "file",
+  "find", "free", "git", "grep", "gzip", "head", "htop", "id", "ifconfig", "kill", "killall",
+  "less", "ln", "logout", "lsof", "make", "man", "mkdir", "more", "mount", "mv", "nano",
+  "netstat", "nmap", "node", "npm", "passwd", "ping", "pnpm", "ps", "python", "python3",
+  "reboot", "rm", "rmdir", "rsync", "scp", "sed", "sh", "shutdown", "sort", "ssh", "su",
+  "sudo", "systemctl", "tail", "tar", "top", "touch", "uname", "unzip", "uptime", "vi", "vim",
+  "wc", "wget", "which", "who", "whoami", "xargs", "yarn", "zip", "zsh",
+]);
+
 // A path prefix the completer keeps in place while completing the name after it.
 const COMPLETION_PATH_PREFIX = /^(\.\/|~\/|\/home\/guest\/)?(.*)$/;
 
@@ -62,6 +74,10 @@ function permissionDenied(command: string): CommandResult {
     output: `${command}: permission denied — guest lacks sysadmin privileges`,
     isError: true,
   };
+}
+
+function commandNotFound(command: string): CommandResult {
+  return { output: `zsh: command not found: ${command}`, isError: true };
 }
 
 function listFiles(args: string[]): CommandResult {
@@ -151,7 +167,7 @@ export async function runCommand(
     case "open":
       return readFiles(command, args);
     default:
-      return permissionDenied(command);
+      return UNIX_COMMANDS.has(command) ? permissionDenied(command) : commandNotFound(command);
   }
 }
 
