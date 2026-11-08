@@ -11,6 +11,8 @@
 export const GITHUB_URL = "https://github.com/metalogica";
 export const TWITTER_HANDLE = "@0xmoreofthesame";
 export const CONTACT_EMAIL = "rei@soulboundlabs.com";
+export const PGP_KEY_URL = "https://rei.gg/pgp.asc";
+export const PGP_FINGERPRINT = "BB87 2D9F BB55 E700 6121  F33A 33C1 2EB8 5A67 43FE";
 export const CALENDLY_URL = "https://calendly.com/rei-soulboundlabs/30min";
 
 export interface SocialProfile {

@@ -7,6 +7,8 @@ import {
   CALENDLY_URL,
   CONTACT_EMAIL,
   GITHUB_URL,
+  PGP_FINGERPRINT,
+  PGP_KEY_URL,
   SOCIAL_LINKS,
 } from "../../content/socials";
 import { LAUNCHER_APPS } from "../../content/apps";
@@ -44,6 +46,8 @@ function socialsText(): string {
     ["GitHub", GITHUB_URL],
     ...SOCIAL_LINKS.map((social): [string, string] => [social.name, social.url]),
     ["Email", CONTACT_EMAIL],
+    ["PGP key", PGP_KEY_URL],
+    ["Fingerprint", PGP_FINGERPRINT],
     ["Book a call", CALENDLY_URL],
   ];
   return rows
