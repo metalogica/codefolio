@@ -111,7 +111,7 @@ This project uses **pnpm**. Always use pnpm instead of npm or yarn.
 - Screen + command history persist for the tab (sessionStorage via `src/lib/terminal/session.ts`) across close/reopen and reloads
 - Real Unix commands (`rm`, `sudo`, `vim`, …) print a "permission denied — guest lacks sysadmin privileges" error; anything else prints `zsh: command not found: <cmd>`
 - Command + virtual-filesystem logic is pure TS in `src/lib/terminal/` (`commands.ts`, `vfs.ts`,
-  `cv-text.ts`, `session.ts`); files (`about.txt`, `cv.txt`, `socials.txt`, `<app>.txt`) render from the content modules
+  `cv-text.ts`, `session.ts`); files (`about.txt`, `cv.txt`, `socials.txt`, `<app>.txt`) render from the content modules; `pgp.asc` reads `public/pgp.asc`
 
 **ChatWindow.tsx** (src/components/global/ChatWindow.tsx)
 - PC-98 messenger window (`A:\REI\CHAT.EXE`) with the OpenRouter chatbot via `/api/chat`, framed as Rei's digital avatar

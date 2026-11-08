@@ -63,9 +63,15 @@ async function cvText(): Promise<string> {
   return cvHtmlToText(html);
 }
 
+async function pgpKeyText(): Promise<string> {
+  const { default: key } = await import("../../../public/pgp.asc?raw");
+  return key.trimEnd();
+}
+
 export const VIRTUAL_FILES: VirtualFile[] = [
   { name: "about.txt", read: aboutText },
   { name: "cv.txt", read: cvText, event: "cv_open" },
+  { name: "pgp.asc", read: pgpKeyText },
   { name: "socials.txt", read: socialsText },
   ...LAUNCHER_APPS.map(
     (app): VirtualFile => ({
